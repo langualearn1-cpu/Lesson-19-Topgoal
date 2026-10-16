@@ -3,25 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Do you remember? - Page 8 | الاستوديو التعليمي التفاعلي</title>
+  <title>Do you remember? - Page 8 | الاستوديو التعليمي الشامل لمزامنة الصوت بالنصوص كاملة</title>
   
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Cairo, Nunito, Fredoka -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome Icons -->
+  <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Canvas Confetti -->
+  <!-- Canvas Confetti for celebrations -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
-      --bg-base: #e0f2fe; --blob-1: rgba(14, 165, 233, 0.38); --blob-2: rgba(45, 212, 191, 0.35); --blob-3: rgba(59, 130, 246, 0.32);
+      --bg-base: #e0f2fe; 
+      --blob-1: rgba(14, 165, 233, 0.38); 
+      --blob-2: rgba(45, 212, 191, 0.35); 
+      --blob-3: rgba(59, 130, 246, 0.32);
     }
     body.theme-ocean { --bg-base: #e0f2fe; --blob-1: rgba(14, 165, 233, 0.38); --blob-2: rgba(45, 212, 191, 0.35); --blob-3: rgba(59, 130, 246, 0.32); }
     body.theme-lavender { --bg-base: #f3e8ff; --blob-1: rgba(139, 92, 246, 0.38); --blob-2: rgba(244, 114, 182, 0.35); --blob-3: rgba(99, 102, 241, 0.32); }
@@ -38,20 +41,25 @@
     .en-font { font-family: 'Nunito', sans-serif; }
     .en-display { font-family: 'Fredoka', sans-serif; }
 
+    /* Animated background */
     .ambient-canvas { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
     .dot-grid { position: fixed; inset: 0; z-index: -1; background-image: radial-gradient(rgba(79, 70, 229, 0.14) 1.5px, transparent 1.5px); background-size: 28px 28px; pointer-events: none; }
     .aurora-blob { position: absolute; border-radius: 9999px; filter: blur(75px); animation: floatAurora 18s infinite alternate ease-in-out; }
     .blob-1 { width: 550px; height: 550px; top: -120px; right: -100px; background: var(--blob-1); }
     .blob-2 { width: 480px; height: 480px; bottom: -120px; left: -100px; background: var(--blob-2); animation-delay: -6s; }
     .blob-3 { width: 450px; height: 450px; top: 40%; left: 35%; background: var(--blob-3); animation-delay: -12s; }
-    @keyframes floatAurora { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 50% { transform: translate(45px, -35px) scale(1.1) rotate(8deg); } 100% { transform: translate(-35px, 40px) scale(0.95) rotate(-8deg); } }
+    @keyframes floatAurora { 
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); } 
+      50% { transform: translate(45px, -35px) scale(1.1) rotate(8deg); } 
+      100% { transform: translate(-35px, 40px) scale(0.95) rotate(-8deg); } 
+    }
 
     .glass-card {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 2px solid rgba(255, 255, 255, 0.95);
-      box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.15), 0 4px 16px rgba(99, 102, 241, 0.08);
+      box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.14), 0 4px 16px rgba(99, 102, 241, 0.08);
       border-radius: 2.25rem;
     }
 
@@ -60,42 +68,165 @@
     .btn-3d:active { transform: translateY(4px) !important; box-shadow: 0 0px 0 0 transparent !important; }
     .btn-3d-indigo { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 5px 0 0 #3730a3, 0 10px 20px rgba(79, 70, 229, 0.35); }
     .btn-3d-emerald { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 5px 0 0 #065f46, 0 10px 20px rgba(16, 185, 129, 0.35); }
+    .btn-3d-rose { background: linear-gradient(135deg, #f43f5e, #e11d48); color: #fff; box-shadow: 0 5px 0 0 #9f1239, 0 10px 20px rgba(244, 63, 94, 0.35); }
+    .btn-3d-amber { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 5px 0 0 #92400e, 0 10px 20px rgba(245, 158, 11, 0.35); }
+    .btn-3d-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; box-shadow: 0 5px 0 0 #5b21b6, 0 10px 20px rgba(139, 92, 246, 0.35); }
     .btn-3d-white { background: #ffffff; color: #334155; border: 2px solid #e2e8f0; box-shadow: 0 5px 0 0 #cbd5e1; }
 
-    .nav-pill { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); border: 2px solid transparent; }
-    .nav-pill.active { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #ffffff; box-shadow: 0 5px 0 0 #312e81, 0 12px 24px -4px rgba(79, 70, 229, 0.45); transform: translateY(-2px); }
+    .nav-pill { transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); border: 2px solid transparent; }
+    .nav-pill.active { 
+      background: linear-gradient(135deg, #4f46e5, #7c3aed); 
+      color: #ffffff; 
+      box-shadow: 0 5px 0 0 #312e81, 0 12px 24px -4px rgba(79, 70, 229, 0.45); 
+      transform: translateY(-2px); 
+    }
 
     .word-token {
-      display: inline-block; padding: 3px 6px; margin: 2px 2px;
-      border-radius: 10px; cursor: pointer; transition: all 0.15s ease-out;
-      border: 2px solid transparent; position: relative; touch-action: manipulation;
+      display: inline-block;
+      padding: 3px 8px;
+      margin: 2px 3px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid transparent;
+      position: relative;
+      touch-action: manipulation;
+      white-space: nowrap; /* Prevents word splitting into two lines */
     }
-    .word-token:hover, .word-token:active { background-color: #e0e7ff; color: #312e81; transform: scale(1.05); }
+    .word-token:hover {
+      background-color: #e0e7ff;
+      color: #312e81;
+      transform: scale(1.06);
+    }
     
-    .word-passed { opacity: 0.45; transition: opacity 0.3s ease; }
+    .word-passed {
+      opacity: 0.58;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Active Highlighted Word (High Contrast Red / Gold Badge) */
     .word-active {
-      background: linear-gradient(90deg, #facc15 0%, #fde047 100%) !important;
-      color: #713f12 !important;
-      border-color: #eab308 !important; border-radius: 12px !important;
-      box-shadow: 0 4px 0 0 #ca8a04, 0 8px 18px rgba(250, 204, 21, 0.55);
-      transform: scale(1.15) translateY(-2px) !important; z-index: 20; opacity: 1 !important;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+      color: #ffffff !important;
+      border-color: #b91c1c !important;
+      border-radius: 14px !important;
+      box-shadow: 0 6px 0 0 #991b1b, 0 12px 25px rgba(239, 68, 68, 0.45) !important;
+      transform: scale(1.18) translateY(-4px) !important;
+      z-index: 30;
+      opacity: 1 !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      animation: pulseActive 1.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseActive {
+      0% { transform: scale(1.16) translateY(-3px); }
+      100% { transform: scale(1.22) translateY(-5px); }
+    }
+
+    /* Active Word in Role Play Dialogue */
+    .rp-q-active {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%) !important;
+      color: #ffffff !important;
+      border-radius: 10px !important;
+      padding: 3px 9px !important;
+      box-shadow: 0 4px 0 0 #9d174d, 0 8px 18px rgba(236, 72, 153, 0.4) !important;
+      transform: scale(1.14) !important;
+      display: inline-block !important;
+      opacity: 1 !important;
+    }
+    .rp-a-active {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+      color: #ffffff !important;
+      border-radius: 10px !important;
+      padding: 3px 9px !important;
+      box-shadow: 0 4px 0 0 #92400e, 0 8px 18px rgba(245, 158, 11, 0.4) !important;
+      transform: scale(1.14) !important;
+      display: inline-block !important;
+      opacity: 1 !important;
+    }
+
+    /* Sound Wave Animation */
+    .sound-wave-bar {
+      width: 4px;
+      height: 14px;
+      background-color: currentColor;
+      border-radius: 9999px;
+      animation: wave 1s ease-in-out infinite alternate;
+    }
+    .sound-wave-bar:nth-child(2) { animation-delay: 0.2s; height: 22px; }
+    .sound-wave-bar:nth-child(3) { animation-delay: 0.4s; height: 16px; }
+    .sound-wave-bar:nth-child(4) { animation-delay: 0.1s; height: 24px; }
+    @keyframes wave {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.3); }
     }
 
     .draggable-word {
-      user-select: none; touch-action: none; cursor: grab; transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      background: #ffffff; border: 2px solid #c7d2fe; box-shadow: 0 5px 0 0 #a5b4fc;
+      user-select: none;
+      touch-action: none;
+      cursor: grab;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: #ffffff;
+      border: 2px solid #c7d2fe;
+      box-shadow: 0 5px 0 0 #a5b4fc;
     }
-    .drop-slot {
-      min-width: 105px; height: 38px; padding: 0 10px;
-      display: inline-flex; align-items: center; justify-content: center;
-      background-color: #f8fafc; border: 3px dashed #94a3b8; border-radius: 12px;
-      margin: 2px 4px; vertical-align: bottom; font-family: 'Fredoka', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    .draggable-word.used {
+      opacity: 0.35;
+      pointer-events: none;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 0 0 #94a3b8;
     }
-    .drop-slot.filled { border-style: solid; border-color: #4f46e5; background: linear-gradient(135deg, #eef2ff, #e0e7ff); color: #312e81; box-shadow: 0 4px 0 0 #818cf8; transform: translateY(-2px); }
-    .drop-slot.correct { border-style: solid; border-color: #10b981; background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; box-shadow: 0 4px 0 0 #059669; }
-    .drop-slot.incorrect { border-style: solid; border-color: #ef4444; background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; box-shadow: 0 4px 0 0 #dc2626; }
+    .draggable-word.selected-for-drop {
+      border-color: #4f46e5;
+      background: #eef2ff;
+      transform: scale(1.08) translateY(-3px);
+      box-shadow: 0 8px 0 0 #4338ca, 0 12px 20px rgba(79, 70, 229, 0.25);
+    }
 
-    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .drop-slot {
+      min-width: 105px;
+      height: 42px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      border: 3px dashed #94a3b8;
+      border-radius: 14px;
+      margin: 2px 4px;
+      vertical-align: middle;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .drop-slot.filled {
+      border-style: solid;
+      border-color: #4f46e5;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      color: #312e81;
+      box-shadow: 0 4px 0 0 #818cf8;
+      transform: translateY(-2px);
+    }
+    .drop-slot.correct {
+      border-style: solid;
+      border-color: #10b981;
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      color: #065f46;
+      box-shadow: 0 4px 0 0 #059669;
+    }
+    .drop-slot.incorrect {
+      border-style: solid;
+      border-color: #ef4444;
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      color: #991b1b;
+      box-shadow: 0 4px 0 0 #dc2626;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .animate-section { animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .arabic-trans-box { display: block; }
   </style>
@@ -103,6 +234,7 @@
 
 <body class="theme-ocean min-h-screen pb-24 overflow-x-hidden selection:bg-indigo-600 selection:text-white" id="mainBody">
 
+  <!-- Ambient glowing background canvas -->
   <div class="ambient-canvas">
     <div class="aurora-blob blob-1"></div>
     <div class="aurora-blob blob-2"></div>
@@ -110,21 +242,26 @@
   </div>
   <div class="dot-grid"></div>
 
-  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b-2 border-white/80 shadow-md">
+  <!-- Header Bar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b-2 border-white/80 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-indigo-600 flex items-center justify-center text-white shadow-lg border-2 border-white">
-          <i class="fa-solid fa-fingerprint text-2xl"></i>
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-indigo-600 flex items-center justify-center text-white shadow-lg border-2 border-white">
+          <i class="fa-solid fa-volume-high text-2xl"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="en-display text-xs font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-indigo-600 text-white shadow-sm">Touch Sync Mode</span>
+            <span class="en-display text-xs font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-indigo-600 text-white shadow-sm flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Full Text-Voice Sync
+            </span>
             <span class="text-xs font-extrabold text-teal-800 bg-teal-100 border border-teal-300 px-2.5 py-0.5 rounded-full">صفحة 8 • Page 8</span>
           </div>
-          <h1 class="text-lg md:text-xl font-black text-slate-900 mt-0.5">التزامن باللمس والإصبع (Touch-to-Sync)</h1>
+          <h1 class="text-lg md:text-xl font-black text-slate-900 mt-0.5">تزامن الصوت بالنصوص كاملة دون نقصان (Word Sync Engine)</h1>
         </div>
       </div>
 
+      <!-- Controls: Theme, Voice Speed & Stars -->
       <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap">
         <div class="flex items-center gap-1.5 bg-slate-100/90 border-2 border-slate-200 px-3 py-1.5 rounded-2xl shadow-inner">
           <i class="fa-solid fa-palette text-indigo-500 text-sm"></i>
@@ -135,9 +272,9 @@
             <option value="theme-sunset">🌅 غروب ذهبي</option>
           </select>
         </div>
-        <div id="starBadge" class="flex items-center gap-2 bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-300 text-amber-900 px-4 py-1.5 rounded-2xl font-black shadow-sm">
+        <div id="starBadge" class="flex items-center gap-2 bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-300 text-amber-900 px-4 py-1.5 rounded-2xl font-black shadow-sm transition-transform">
           <i class="fa-solid fa-star text-amber-500 text-lg"></i>
-          <span class="text-xs md:text-sm">نجومي:</span>
+          <span class="text-xs md:text-sm">نقاطي:</span>
           <span id="starScore" class="en-display text-xl text-amber-600">0</span>
         </div>
       </div>
@@ -147,13 +284,13 @@
     <div class="max-w-7xl mx-auto px-4 pb-3 pt-2">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3 bg-slate-100/90 p-2 rounded-3xl border-2 border-white shadow-inner">
         <button onclick="switchTab('listen')" id="tab-listen" class="nav-pill active py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
-          <i class="fa-solid fa-hand-pointer"></i><span>1. القراءة باللمس والإصبع</span>
+          <i class="fa-solid fa-headphones-simple"></i><span>1. القراءة المتزامنة كاملة (Page 8)</span>
         </button>
         <button onclick="switchTab('dragdrop')" id="tab-dragdrop" class="nav-pill py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
-          <i class="fa-solid fa-puzzle-piece"></i><span>2. السحب والإفلات (1)</span>
+          <i class="fa-solid fa-puzzle-piece"></i><span>2. السحب والإفلات مع التزامن الكامل</span>
         </button>
         <button onclick="switchTab('roleplay')" id="tab-roleplay" class="nav-pill py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
-          <i class="fa-solid fa-comments"></i><span>3. لعبة الأدوار (2)</span>
+          <i class="fa-solid fa-comments"></i><span>3. حوار متزامن واستبيان شامل</span>
         </button>
       </div>
     </div>
@@ -161,39 +298,90 @@
 
   <main class="max-w-7xl mx-auto px-4 mt-8">
 
+    <!-- Section 1: Synchronized Reading -->
     <section id="section-listen" class="tab-content block animate-section">
-      <div class="glass-card p-5 md:p-6 mb-8 border-2 border-indigo-100 bg-gradient-to-r from-indigo-50/80 to-purple-50/80">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-right">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow">
-              <i class="fa-solid fa-hand-point-up"></i>
+      
+      <!-- Audio Synchronization Master Control Panel -->
+      <div class="glass-card p-6 md:p-8 mb-8 border-2 border-indigo-200 bg-gradient-to-r from-indigo-50/95 via-purple-50/95 to-pink-50/95 shadow-xl">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+          
+          <div class="flex items-center gap-4 text-center sm:text-right">
+            <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl shadow-lg shrink-0">
+              <i id="masterAudioIcon" class="fa-solid fa-play"></i>
             </div>
             <div>
-              <h2 class="text-lg font-black text-slate-900">انقر أو المس أي كلمة أو جملة بإصبعك للاستماع والتزامن الفوري</h2>
-              <p class="text-xs text-indigo-700 font-bold mt-0.5">النظام يقرأ وينير الكلمة فور لمسها لتجربة تفاعلية مذهلة</p>
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <h2 class="text-xl font-black text-slate-900">مشغل التزامن الصوتي للنص كاملاً دون نقصان</h2>
+                <div id="audioWave" class="hidden items-center gap-1 text-indigo-600">
+                  <div class="sound-wave-bar"></div>
+                  <div class="sound-wave-bar"></div>
+                  <div class="sound-wave-bar"></div>
+                  <div class="sound-wave-bar"></div>
+                </div>
+              </div>
+              <p class="text-xs md:text-sm text-indigo-800 font-bold mt-1">
+                استمع إلى القراءة مع تظليل أحمر فوري للكلمة المنطوقة، أو انقر على أي كلمة لبدء الاستماع منها مباشرة!
+              </p>
             </div>
           </div>
-          <button onclick="toggleTranslations()" class="btn-3d btn-3d-white px-4 py-2.5 rounded-2xl font-black text-xs md:text-sm flex items-center gap-2">
-            <i class="fa-solid fa-language text-indigo-600 text-lg"></i><span id="transBtnText">إخفاء الترجمة</span>
-          </button>
+
+          <!-- Controls: Play Story, Pause, Stop & Speed -->
+          <div class="flex flex-wrap items-center justify-center gap-3 w-full lg:w-auto">
+            <button onclick="playFullStory()" id="btnPlayAll" class="btn-3d btn-3d-indigo px-5 py-3 rounded-2xl font-black text-sm flex items-center gap-2.5">
+              <i class="fa-solid fa-play"></i>
+              <span>تشغيل القصة كاملة 🎧</span>
+            </button>
+            <button onclick="pauseResumeSpeech()" id="btnPauseResume" class="btn-3d btn-3d-white px-4 py-3 rounded-2xl font-black text-sm flex items-center gap-2">
+              <i class="fa-solid fa-pause text-slate-600"></i>
+              <span id="pauseBtnText">إيقاف مؤقت</span>
+            </button>
+            <button onclick="stopSpeech()" class="btn-3d btn-3d-rose px-4 py-3 rounded-2xl font-black text-sm flex items-center gap-2">
+              <i class="fa-solid fa-stop"></i>
+              <span>إيقاف</span>
+            </button>
+
+            <!-- Speed selector -->
+            <div class="flex items-center bg-white border-2 border-indigo-200 rounded-2xl p-1 shadow-sm">
+              <span class="text-xs font-black text-slate-500 px-2 flex items-center gap-1">
+                <i class="fa-solid fa-gauge-high text-indigo-500"></i> السرعة:
+              </span>
+              <button onclick="setSpeechRate(0.75, this)" class="rate-btn px-2.5 py-1 text-xs font-black rounded-xl text-slate-600 hover:bg-indigo-50">0.75x</button>
+              <button onclick="setSpeechRate(0.85, this)" class="rate-btn active-rate bg-indigo-600 text-white px-2.5 py-1 text-xs font-black rounded-xl shadow-sm">0.85x</button>
+              <button onclick="setSpeechRate(1.0, this)" class="rate-btn px-2.5 py-1 text-xs font-black rounded-xl text-slate-600 hover:bg-indigo-50">1.0x</button>
+            </div>
+
+            <button onclick="toggleTranslations()" class="btn-3d btn-3d-white px-4 py-3 rounded-2xl font-black text-xs md:text-sm flex items-center gap-2">
+              <i class="fa-solid fa-language text-indigo-600 text-lg"></i>
+              <span id="transBtnText">إخفاء الترجمة</span>
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Reading Story Card -->
       <div class="glass-card p-6 md:p-10 relative overflow-hidden">
-        <div class="flex items-center justify-between pb-4 mb-6 border-b-2 border-slate-100" dir="ltr">
+        <div class="flex flex-col sm:flex-row items-center justify-between pb-4 mb-6 border-b-2 border-slate-100 gap-3" dir="ltr">
           <div class="flex items-center gap-3">
             <span class="w-10 h-10 rounded-full bg-pink-600 text-white en-display flex items-center justify-center text-xl font-bold shadow-md">1</span>
             <span class="en-display font-bold text-slate-900 text-lg md:text-xl">Look, read and answer.</span>
+            <button onclick="speakInstruction()" class="p-2 rounded-xl bg-pink-100 text-pink-700 hover:bg-pink-200 transition text-sm font-bold" title="Listen to instruction">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
           </div>
-          <span class="bg-indigo-100 text-indigo-700 font-black text-xs px-3 py-1.5 rounded-full" dir="rtl">👆 المس الكلمة بإصبعك لسماع نطقها الدقيق</span>
+          <div class="flex items-center gap-2">
+            <span class="bg-rose-100 text-rose-800 border border-rose-300 font-black text-xs px-3 py-1.5 rounded-full flex items-center gap-1.5" dir="rtl">
+              <i class="fa-solid fa-hand-pointer text-rose-600"></i>
+              انقر على أي كلمة أو زر الفقرة للاستماع بالتزامن الكامل
+            </span>
+          </div>
         </div>
 
         <!-- Custom SVG Images & Post Box -->
         <div class="max-w-4xl mx-auto bg-white rounded-3xl border-2 border-slate-200 shadow-xl overflow-hidden mb-8" dir="ltr">
           <div class="grid grid-cols-1 sm:grid-cols-2">
+            <!-- Photo 1: Asma -->
             <div class="bg-amber-50 p-6 flex flex-col items-center justify-center border-b sm:border-b-0 sm:border-r border-slate-200 relative group">
-              <div class="absolute top-3 left-3 bg-white/90 text-amber-900 text-[10px] font-bold px-2 py-1 rounded shadow-sm en-display">Photo 1</div>
+              <div class="absolute top-3 left-3 bg-white/90 text-amber-900 text-[11px] font-black px-2.5 py-1 rounded-xl shadow-sm en-display">Photo 1 • Asma</div>
               <svg viewBox="0 0 200 200" class="w-48 h-48 drop-shadow-xl transition-transform duration-300 group-hover:scale-105">
                 <circle cx="100" cy="100" r="95" fill="#fef3c7"/>
                 <path d="M 60 70 Q 50 140 40 190 L 160 190 Q 150 140 140 70 Q 100 20 60 70" fill="#451a03"/>
@@ -203,10 +391,11 @@
                 <path d="M 85 110 Q 100 125 115 110" fill="none" stroke="#b45309" stroke-width="3" stroke-linecap="round"/>
               </svg>
             </div>
+            <!-- Photo 2: Classroom & Math -->
             <div class="bg-emerald-50 p-6 flex flex-col items-center justify-center relative group">
-              <div class="absolute top-3 left-3 bg-white/90 text-emerald-900 text-[10px] font-bold px-2 py-1 rounded shadow-sm en-display">Photo 2</div>
+              <div class="absolute top-3 left-3 bg-white/90 text-emerald-900 text-[11px] font-black px-2.5 py-1 rounded-xl shadow-sm en-display">Photo 2 • Classroom</div>
               <svg viewBox="0 0 200 200" class="w-48 h-48 drop-shadow-xl transition-transform duration-300 group-hover:scale-105">
-                <rect x="20" y="30" width="160" height="90" rx="4" fill="#064e3b" stroke="#3f6212" stroke-width="4"/>
+                <rect x="20" y="30" width="160" height="90" rx="6" fill="#064e3b" stroke="#3f6212" stroke-width="4"/>
                 <text x="35" y="70" fill="#fff" font-family="Arial" font-size="20">2 + 2 = 4</text>
                 <circle cx="150" cy="100" r="15" fill="#fcd34d"/>
                 <rect x="140" y="115" width="20" height="30" fill="#312e81"/>
@@ -218,7 +407,9 @@
           </div>
           <div class="px-5 py-3 flex items-center justify-between border-t border-slate-100 bg-white">
             <div class="flex items-center gap-4">
-              <button onclick="likePost()" class="text-rose-500 hover:scale-110 transition"><i id="heartIcon" class="fa-solid fa-heart text-2xl"></i></button>
+              <button onclick="likePost()" class="text-rose-500 hover:scale-110 transition cursor-pointer">
+                <i id="heartIcon" class="fa-solid fa-heart text-2xl"></i>
+              </button>
               <i class="fa-regular fa-comment text-2xl text-slate-700"></i>
               <i class="fa-regular fa-paper-plane text-2xl text-slate-700"></i>
             </div>
@@ -229,28 +420,68 @@
           </div>
         </div>
 
-        <!-- Text Content -->
+        <!-- Paragraphs with Individual Play Buttons & Word Tokens -->
         <div class="space-y-8">
-          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-amber-50 border-2 border-amber-100 shadow-sm">
+          
+          <!-- Paragraph 1 -->
+          <div id="card-p1" class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 shadow-sm transition-all duration-300">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-amber-200">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-amber-500 text-white font-black flex items-center justify-center text-sm">P1</span>
+                <span class="font-black text-amber-900 text-sm md:text-base">الفقرة الأولى: صديقتي أسماء</span>
+              </div>
+              <button onclick="playParagraph(0)" class="btn-3d btn-3d-amber px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>استمع للفقرة بالتزامن</span>
+              </button>
+            </div>
             <div id="read-p1" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-slate-800 text-center font-bold tracking-wide" dir="ltr"></div>
-            <div class="arabic-trans-box mt-6 bg-amber-100/60 border-x-4 border-amber-500 p-4 rounded-2xl text-amber-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
+            <div class="arabic-trans-box mt-6 bg-amber-100/70 border-x-4 border-amber-500 p-4 rounded-2xl text-amber-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
               في الصورة الأولى، يمكنك أن ترى أفضل صديقة لي في المدرسة. اسمها أسماء. لديها شعر أطول من شعري، وهي أطول مني أيضاً. أعتقد أنها أطول فتاة في صفنا. نحن نجلس دائماً بجوار بعضنا البعض. إنها ذكية جداً! هي ألطف شخص أعرفه. أسماء تساعد صديقاتها وتبتسم كثيراً.
             </div>
           </div>
-          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-emerald-50 border-2 border-emerald-100 shadow-sm">
+
+          <!-- Paragraph 2 -->
+          <div id="card-p2" class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-emerald-50 border-2 border-emerald-200 shadow-sm transition-all duration-300">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-emerald-200">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center text-sm">P2</span>
+                <span class="font-black text-emerald-900 text-sm md:text-base">الفقرة الثانية: صفنا وحصة الرياضيات</span>
+              </div>
+              <button onclick="playParagraph(1)" class="btn-3d btn-3d-emerald px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>استمع للفقرة بالتزامن</span>
+              </button>
+            </div>
             <div id="read-p2" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-slate-800 text-center font-bold tracking-wide" dir="ltr"></div>
-            <div class="arabic-trans-box mt-6 bg-emerald-100/60 border-x-4 border-emerald-500 p-4 rounded-2xl text-emerald-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
+            <div class="arabic-trans-box mt-6 bg-emerald-100/70 border-x-4 border-emerald-500 p-4 rounded-2xl text-emerald-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
               الصورة الثانية هي لصفنا مع المعلمة. صفنا هو الأكبر في مدرستنا. يوجد فيه 30 طالباً! الفصول الأخرى أصغر وبها حوالي 20 طالباً في كل فصل. في هذه الصورة نحن في حصة الرياضيات. أنا أحب المواد المدرسية التي ندرسها، لكن الرياضيات أصعب من الجغرافيا أو التاريخ. أحياناً لا أفهم الرياضيات، وأعتقد أنني أسوأ طالبة في الصف! لكن أسماء تساعدني دائماً لأنها أفضل مني في الرياضيات.
             </div>
           </div>
-          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 shadow-sm">
+
+          <!-- Paragraph 3 -->
+          <div id="card-p3" class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-indigo-50 border-2 border-indigo-200 shadow-sm transition-all duration-300">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-indigo-200">
+              <div class="flex items-center gap-2">
+                <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-black flex items-center justify-center text-sm">P3</span>
+                <span class="font-black text-indigo-900 text-sm md:text-base">الفقرة الثالثة: سؤال الطالب</span>
+              </div>
+              <button onclick="playParagraph(2)" class="btn-3d btn-3d-indigo px-4 py-2 rounded-xl text-xs font-black flex items-center gap-2">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>استمع للفقرة بالتزامن</span>
+              </button>
+            </div>
             <div id="read-p3" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-indigo-900 text-center font-black tracking-wide" dir="ltr"></div>
-            <div class="arabic-trans-box mt-4 text-indigo-700 font-bold text-center text-base md:text-lg" dir="rtl">ماذا عنك؟ من هو صديقك المفضل في المدرسة؟ وما هي الصور المدرسية التي تمتلكها؟</div>
+            <div class="arabic-trans-box mt-4 text-indigo-700 font-bold text-center text-base md:text-lg" dir="rtl">
+              ماذا عنك؟ من هو صديقك المفضل في المدرسة؟ وما هي الصور المدرسية التي تمتلكها؟
+            </div>
           </div>
+
         </div>
       </div>
     </section>
 
+    <!-- Section 2: Drag and Drop -->
     <section id="section-dragdrop" class="tab-content hidden animate-section">
       <div class="glass-card p-6 md:p-10">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 border-b-2 border-slate-100 pb-5">
@@ -259,28 +490,50 @@
               <span class="w-6 h-6 rounded-full bg-indigo-600 text-white en-display flex items-center justify-center">1</span>
               <span>Fill in the blanks (10 Words)</span>
             </div>
-            <h2 class="text-2xl font-black text-slate-900">أكمل الفراغات بالكلمة الصحيحة (السحب والإفلات)</h2>
+            <h2 class="text-2xl font-black text-slate-900">أكمل الفراغات بالكلمة الصحيحة (مع المزامنة الصوتية الكاملة)</h2>
           </div>
-          <div class="flex items-center gap-3">
-            <button onclick="solveOneHint()" class="btn-3d btn-3d-white px-4 py-2 rounded-2xl font-black text-sm flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i> تلميح</button>
-            <button onclick="checkDragAnswers()" class="btn-3d btn-3d-emerald px-6 py-2 rounded-2xl font-black text-sm flex items-center gap-2"><i class="fa-solid fa-check-circle"></i> تحقق</button>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="playDragDropCompletedText()" id="btnPlayDD" class="btn-3d btn-3d-purple px-4 py-2 rounded-2xl font-black text-sm flex items-center gap-2">
+              <i class="fa-solid fa-headphones"></i> استمع للقطعة كاملة بالحلول
+            </button>
+            <button onclick="solveOneHint()" class="btn-3d btn-3d-white px-4 py-2 rounded-2xl font-black text-sm flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-amber-500"></i> تلميح
+            </button>
+            <button onclick="checkDragAnswers()" class="btn-3d btn-3d-emerald px-6 py-2 rounded-2xl font-black text-sm flex items-center gap-2">
+              <i class="fa-solid fa-check-circle"></i> تحقق
+            </button>
           </div>
         </div>
 
         <div class="bg-indigo-50 rounded-3xl p-5 border-2 border-indigo-200 mb-8 sticky top-24 z-30 shadow-sm">
-          <div class="text-xs font-black text-indigo-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-hand-pointer"></i> اسحب الكلمة أو انقر عليها بإصبعك ثم انقر على الفراغ:</div>
+          <div class="text-xs font-black text-indigo-900 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-hand-pointer text-indigo-600"></i> اسحب الكلمة أو انقر عليها بإصبعك (مع نطق فوري) ثم انقر على الفراغ المناسب:
+          </div>
           <div id="ddWordBank" class="flex flex-wrap items-center justify-center gap-3 en-font text-lg font-bold" dir="ltr"></div>
         </div>
 
+        <!-- Texts with Drop Slots and word token ids for complete sync -->
         <div class="space-y-6 en-font text-xl md:text-2xl leading-[2.6] text-slate-800 font-bold" dir="ltr">
-          <div class="bg-white p-6 rounded-3xl border-2 border-slate-100">
-            <p>
-              In the first photo, you can see my <sup class="text-pink-500 font-black text-base">1</sup><span class="drop-slot" data-id="1" data-ans="best"></span> friend at school. Her name is Asma. She has <sup class="text-pink-500 font-black text-base">2</sup><span class="drop-slot" data-id="2" data-ans="longer"></span> hair than me, and she is <sup class="text-pink-500 font-black text-base">3</sup><span class="drop-slot" data-id="3" data-ans="taller"></span> too. I think she is the <sup class="text-pink-500 font-black text-base">4</sup><span class="drop-slot" data-id="4" data-ans="tallest"></span> girl in our class. We always sit next to each other. She is brilliant! She is the <sup class="text-pink-500 font-black text-base">5</sup><span class="drop-slot" data-id="5" data-ans="nicest"></span> person I know. Asma helps her friends and smiles a lot.
+          <div id="dd-p1-card" class="bg-white p-6 md:p-8 rounded-3xl border-2 border-slate-100 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-black text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Part 1</span>
+              <button onclick="playDDSentence(1)" class="text-xs bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold px-3 py-1 rounded-xl flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-volume-high"></i> استمع للفقرة الأولى بالتزامن
+              </button>
+            </div>
+            <p id="dd-text-p1">
+              <span id="ddt-1">In</span> <span id="ddt-2">the</span> <span id="ddt-3">first</span> <span id="ddt-4">photo,</span> <span id="ddt-5">you</span> <span id="ddt-6">can</span> <span id="ddt-7">see</span> <span id="ddt-8">my</span> <sup class="text-pink-500 font-black text-base">1</sup><span class="drop-slot" data-id="1" data-ans="best" id="dd-slot-1"></span> <span id="ddt-9">friend</span> <span id="ddt-10">at</span> <span id="ddt-11">school.</span> <span id="ddt-12">Her</span> <span id="ddt-13">name</span> <span id="ddt-14">is</span> <span id="ddt-15">Asma.</span> <span id="ddt-16">She</span> <span id="ddt-17">has</span> <sup class="text-pink-500 font-black text-base">2</sup><span class="drop-slot" data-id="2" data-ans="longer" id="dd-slot-2"></span> <span id="ddt-18">hair</span> <span id="ddt-19">than</span> <span id="ddt-20">me,</span> <span id="ddt-21">and</span> <span id="ddt-22">she</span> <span id="ddt-23">is</span> <sup class="text-pink-500 font-black text-base">3</sup><span class="drop-slot" data-id="3" data-ans="taller" id="dd-slot-3"></span> <span id="ddt-24">too.</span> <span id="ddt-25">I</span> <span id="ddt-26">think</span> <span id="ddt-27">she</span> <span id="ddt-28">is</span> <span id="ddt-29">the</span> <sup class="text-pink-500 font-black text-base">4</sup><span class="drop-slot" data-id="4" data-ans="tallest" id="dd-slot-4"></span> <span id="ddt-30">girl</span> <span id="ddt-31">in</span> <span id="ddt-32">our</span> <span id="ddt-33">class.</span> <span id="ddt-34">We</span> <span id="ddt-35">always</span> <span id="ddt-36">sit</span> <span id="ddt-37">next</span> <span id="ddt-38">to</span> <span id="ddt-39">each</span> <span id="ddt-40">other.</span> <span id="ddt-41">She</span> <span id="ddt-42">is</span> <span id="ddt-43">brilliant!</span> <span id="ddt-44">She</span> <span id="ddt-45">is</span> <span id="ddt-46">the</span> <sup class="text-pink-500 font-black text-base">5</sup><span class="drop-slot" data-id="5" data-ans="nicest" id="dd-slot-5"></span> <span id="ddt-47">person</span> <span id="ddt-48">I</span> <span id="ddt-49">know.</span> <span id="ddt-50">Asma</span> <span id="ddt-51">helps</span> <span id="ddt-52">her</span> <span id="ddt-53">friends</span> <span id="ddt-54">and</span> <span id="ddt-55">smiles</span> <span id="ddt-56">a</span> <span id="ddt-57">lot.</span>
             </p>
           </div>
-          <div class="bg-white p-6 rounded-3xl border-2 border-slate-100">
-            <p>
-              The second photo is of our class with the teacher. Our class is the <sup class="text-pink-500 font-black text-base">6</sup><span class="drop-slot" data-id="6" data-ans="biggest"></span> in our school. There are 30 students! The other classes are <sup class="text-pink-500 font-black text-base">7</sup><span class="drop-slot" data-id="7" data-ans="smaller"></span> with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is <sup class="text-pink-500 font-black text-base">8</sup><span class="drop-slot" data-id="8" data-ans="more difficult"></span> than geography or history. Sometimes I don't understand math, and I think I am the <sup class="text-pink-500 font-black text-base">9</sup><span class="drop-slot" data-id="9" data-ans="worst"></span> student in class! But Asma always helps me because she is <sup class="text-pink-500 font-black text-base">10</sup><span class="drop-slot" data-id="10" data-ans="better"></span> at math than me.
+          <div id="dd-p2-card" class="bg-white p-6 md:p-8 rounded-3xl border-2 border-slate-100 shadow-sm">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-xs font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Part 2</span>
+              <button onclick="playDDSentence(2)" class="text-xs bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold px-3 py-1 rounded-xl flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-volume-high"></i> استمع للفقرة الثانية بالتزامن
+              </button>
+            </div>
+            <p id="dd-text-p2">
+              <span id="ddt-58">The</span> <span id="ddt-59">second</span> <span id="ddt-60">photo</span> <span id="ddt-61">is</span> <span id="ddt-62">of</span> <span id="ddt-63">our</span> <span id="ddt-64">class</span> <span id="ddt-65">with</span> <span id="ddt-66">the</span> <span id="ddt-67">teacher.</span> <span id="ddt-68">Our</span> <span id="ddt-69">class</span> <span id="ddt-70">is</span> <span id="ddt-71">the</span> <sup class="text-pink-500 font-black text-base">6</sup><span class="drop-slot" data-id="6" data-ans="biggest" id="dd-slot-6"></span> <span id="ddt-72">in</span> <span id="ddt-73">our</span> <span id="ddt-74">school.</span> <span id="ddt-75">There</span> <span id="ddt-76">are</span> <span id="ddt-77">30</span> <span id="ddt-78">students!</span> <span id="ddt-79">The</span> <span id="ddt-80">other</span> <span id="ddt-81">classes</span> <span id="ddt-82">are</span> <sup class="text-pink-500 font-black text-base">7</sup><span class="drop-slot" data-id="7" data-ans="smaller" id="dd-slot-7"></span> <span id="ddt-83">with</span> <span id="ddt-84">about</span> <span id="ddt-85">20</span> <span id="ddt-86">students</span> <span id="ddt-87">in</span> <span id="ddt-88">each</span> <span id="ddt-89">one.</span> <span id="ddt-90">In</span> <span id="ddt-91">this</span> <span id="ddt-92">photo,</span> <span id="ddt-93">we</span> <span id="ddt-94">are</span> <span id="ddt-95">in</span> <span id="ddt-96">our</span> <span id="ddt-97">math</span> <span id="ddt-98">class.</span> <span id="ddt-99">I</span> <span id="ddt-100">like</span> <span id="ddt-101">the</span> <span id="ddt-102">school</span> <span id="ddt-103">subjects</span> <span id="ddt-104">we</span> <span id="ddt-105">study,</span> <span id="ddt-106">but</span> <span id="ddt-107">math</span> <span id="ddt-108">is</span> <sup class="text-pink-500 font-black text-base">8</sup><span class="drop-slot" data-id="8" data-ans="more difficult" id="dd-slot-8"></span> <span id="ddt-109">than</span> <span id="ddt-110">geography</span> <span id="ddt-111">or</span> <span id="ddt-112">history.</span> <span id="ddt-113">Sometimes</span> <span id="ddt-114">I</span> <span id="ddt-115">don't</span> <span id="ddt-116">understand</span> <span id="ddt-117">math,</span> <span id="ddt-118">and</span> <span id="ddt-119">I</span> <span id="ddt-120">think</span> <span id="ddt-121">I</span> <span id="ddt-122">am</span> <span id="ddt-123">the</span> <sup class="text-pink-500 font-black text-base">9</sup><span class="drop-slot" data-id="9" data-ans="worst" id="dd-slot-9"></span> <span id="ddt-124">student</span> <span id="ddt-125">in</span> <span id="ddt-126">class!</span> <span id="ddt-127">But</span> <span id="ddt-128">Asma</span> <span id="ddt-129">always</span> <span id="ddt-130">helps</span> <span id="ddt-131">me</span> <span id="ddt-132">because</span> <span id="ddt-133">she</span> <span id="ddt-134">is</span> <sup class="text-pink-500 font-black text-base">10</sup><span class="drop-slot" data-id="10" data-ans="better" id="dd-slot-10"></span> <span id="ddt-135">at</span> <span id="ddt-136">math</span> <span id="ddt-137">than</span> <span id="ddt-138">me.</span>
             </p>
           </div>
         </div>
@@ -288,28 +541,37 @@
       </div>
     </section>
 
+    <!-- Section 3: Role Play & Survey -->
     <section id="section-roleplay" class="tab-content hidden animate-section">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
         
+        <!-- Active Dialogue Box -->
         <div class="lg:col-span-7 flex flex-col h-full">
           <div class="glass-card p-6 md:p-8 border-2 border-indigo-100 flex-1 flex flex-col relative">
             <div class="flex items-center justify-between mb-8 pb-4 border-b-2 border-slate-100">
               <div class="flex items-center gap-3">
                 <div id="rpStageNum" class="w-12 h-12 rounded-full bg-indigo-600 text-white en-display font-bold text-xl flex items-center justify-center shadow">1</div>
                 <div>
-                  <h3 class="font-black text-slate-900 text-xl">المحادثة النشطة باللمس</h3>
-                  <p class="text-xs text-slate-500 font-bold">Ask and Answer</p>
+                  <h3 class="font-black text-slate-900 text-xl">المحادثة النشطة بالتزامن الكامل</h3>
+                  <p class="text-xs text-slate-500 font-bold">Ask and Answer • Synchronized Speech</p>
                 </div>
               </div>
-              <button onclick="playFullChat()" class="btn-3d btn-3d-indigo px-4 py-2 rounded-xl text-sm font-black flex items-center gap-2"><i class="fa-solid fa-volume-high"></i> استمع للحوار كاملًا</button>
+              <button onclick="playFullChat()" class="btn-3d btn-3d-indigo px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-2">
+                <i class="fa-solid fa-volume-high"></i>
+                <span>استمع للحوار كاملًا 💬</span>
+              </button>
             </div>
 
             <div class="space-y-8 flex-1 flex flex-col justify-center pb-6">
+              <!-- Student A -->
               <div class="flex items-start gap-4">
                 <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 text-white flex items-center justify-center text-4xl shadow-md shrink-0">👩🏻</div>
                 <div class="flex-1">
-                  <div class="flex items-center gap-2 mb-1.5 justify-end" dir="ltr">
+                  <div class="flex items-center justify-between mb-1.5" dir="ltr">
                     <span class="en-display font-bold text-pink-600 text-sm">Student A</span>
+                    <button onclick="playRpSentence('q')" class="text-xs bg-pink-100 text-pink-700 hover:bg-pink-200 px-2 py-0.5 rounded-lg font-black flex items-center gap-1 transition">
+                      <i class="fa-solid fa-volume-high"></i> نطق متزامن
+                    </button>
                   </div>
                   <div class="bg-white p-6 rounded-[2.5rem] rounded-tr-none border-2 border-pink-100 shadow text-left cursor-pointer hover:bg-pink-50/50 transition" dir="ltr" onclick="playRpSentence('q')">
                     <p id="rpQText" class="en-font text-2xl md:text-3xl font-black text-slate-900 leading-snug"></p>
@@ -318,11 +580,15 @@
                 </div>
               </div>
 
+              <!-- Student B -->
               <div class="flex items-start gap-4">
                 <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-4xl shadow-md shrink-0">🧒🏽</div>
                 <div class="flex-1">
-                  <div class="flex items-center gap-2 mb-1.5 justify-end" dir="ltr">
+                  <div class="flex items-center justify-between mb-1.5" dir="ltr">
                     <span class="en-display font-bold text-indigo-600 text-sm">Student B</span>
+                    <button onclick="playRpSentence('a')" class="text-xs bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-2 py-0.5 rounded-lg font-black flex items-center gap-1 transition">
+                      <i class="fa-solid fa-volume-high"></i> نطق متزامن
+                    </button>
                   </div>
                   <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-[2.5rem] rounded-tr-none text-white shadow-xl text-left cursor-pointer hover:opacity-95 transition" dir="ltr" onclick="playRpSentence('a')">
                     <p id="rpAText" class="en-font text-2xl md:text-3xl font-black leading-snug"></p>
@@ -332,31 +598,38 @@
               </div>
             </div>
 
+            <!-- Comprehension Question -->
             <div class="pt-6 border-t-2 border-slate-100 mt-auto">
-              <div class="text-sm font-black text-slate-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-bullseye text-rose-500"></i> اختبر استيعابك لتسجيل النقاط:</div>
+              <div class="text-sm font-black text-slate-700 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-rose-500"></i> اختبر استيعابك لاختيار الرد الصحيح (مع التزامن):
+              </div>
               <div id="rpMCQContainer" class="flex flex-col gap-3" dir="ltr"></div>
             </div>
           </div>
         </div>
 
+        <!-- Questions List -->
         <div class="lg:col-span-5 h-full">
           <div class="glass-card p-6 border-2 border-indigo-100 h-full">
             <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center justify-between">
               <span>قائمة الأسئلة (6)</span>
-              <i class="fa-solid fa-list text-indigo-400"></i>
+              <i class="fa-solid fa-list text-indigo-500"></i>
             </h3>
             <div id="rpList" class="space-y-3"></div>
           </div>
         </div>
       </div>
 
+      <!-- Survey Table -->
       <div class="glass-card p-6 md:p-8 border-2 border-teal-200 mt-8">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
           <div>
             <span class="bg-teal-100 text-teal-800 text-xs font-black px-3 py-1 rounded-full">جدول الاستبيان التفاعلي • Survey</span>
             <h2 class="text-xl md:text-2xl font-black text-slate-900 mt-1">اقرأ وفكر، ثم اسأل وأجب (Me & My Classmate)</h2>
           </div>
-          <button onclick="autoFillSurvey()" class="btn-3d btn-3d-emerald px-5 py-2.5 rounded-xl text-sm font-black flex items-center gap-2"><i class="fa-solid fa-wand-sparkles"></i> تعبئة إجابات نموذجية</button>
+          <button onclick="autoFillSurvey()" class="btn-3d btn-3d-emerald px-5 py-2.5 rounded-xl text-sm font-black flex items-center gap-2">
+            <i class="fa-solid fa-wand-sparkles"></i> تعبئة إجابات نموذجية
+          </button>
         </div>
         
         <div class="overflow-x-auto rounded-2xl border-2 border-teal-600 shadow-sm" dir="ltr">
@@ -364,7 +637,7 @@
             <thead>
               <tr class="bg-teal-600 text-white en-display text-lg">
                 <th class="p-4 border-r-2 border-teal-700 w-12 text-center">#</th>
-                <th class="p-4 border-r-2 border-teal-700 w-1/2">Questions</th>
+                <th class="p-4 border-r-2 border-teal-700 w-1/2">Questions (Click 🔊 to sync word-by-word)</th>
                 <th class="p-4 border-r-2 border-teal-700 text-center text-teal-100">Me</th>
                 <th class="p-4 text-center text-teal-100">My classmate</th>
               </tr>
@@ -375,8 +648,11 @@
       </div>
     </section>
 
-    <!-- Word Toast -->
+    <!-- Word Info Floating Toast -->
     <div id="wordToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-slate-900/95 backdrop-blur-md text-white rounded-3xl p-4 shadow-2xl border-2 border-indigo-400/50 flex items-center gap-4 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+      <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-lg shrink-0">
+        <i class="fa-solid fa-language text-yellow-300"></i>
+      </div>
       <div class="flex-1">
         <div class="en-display text-xl text-yellow-300 mb-0.5" id="toastEn"></div>
         <div class="font-bold text-sm" id="toastAr"></div>
@@ -385,13 +661,59 @@
   </main>
 
   <script>
+    /* Data Definitions for Page 8 Complete Text */
     const textData = [
-      { id: "read-p1", text: "In the first photo, you can see my best friend at school. Her name is Asma. She has longer hair than me, and she is taller too. I think she is the tallest girl in our class. We always sit next to each other. She is brilliant! She is the nicest person I know. Asma helps her friends and smiles a lot." },
-      { id: "read-p2", text: "The second photo is of our class with the teacher. Our class is the biggest in our school. There are 30 students! The other classes are smaller with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is more difficult than geography or history. Sometimes I don't understand math, and I think I am the worst student in class! But Asma always helps me because she is better at math than me." },
-      { id: "read-p3", text: "What about you? Who is your best friend at school? What school photos do you have?" }
+      { 
+        id: "read-p1", 
+        cardId: "card-p1",
+        text: "In the first photo, you can see my best friend at school. Her name is Asma. She has longer hair than me, and she is taller too. I think she is the tallest girl in our class. We always sit next to each other. She is brilliant! She is the nicest person I know. Asma helps her friends and smiles a lot." 
+      },
+      { 
+        id: "read-p2", 
+        cardId: "card-p2",
+        text: "The second photo is of our class with the teacher. Our class is the biggest in our school. There are 30 students! The other classes are smaller with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is more difficult than geography or history. Sometimes I don't understand math, and I think I am the worst student in class! But Asma always helps me because she is better at math than me." 
+      },
+      { 
+        id: "read-p3", 
+        cardId: "card-p3",
+        text: "What about you? Who is your best friend at school? What school photos do you have?" 
+      }
     ];
 
-    const dict = { "best":"الأفضل (تفضيل من good)", "better":"أفضل من (مقارنة من good)", "biggest":"الأكبر (تفضيل)", "longer":"أطول لغير العاقل (مقارنة)", "more":"أكثر", "difficult":"صعب", "nicest":"الألطف (تفضيل)", "smaller":"أصغر (مقارنة)", "taller":"أطول للعاقل (مقارنة)", "tallest":"الأطول للعاقل (تفضيل)", "worst":"الأسوأ (تفضيل من bad)", "friend":"صديق/صديقة", "school":"المدرسة", "name":"اسم", "hair":"شعر", "class":"صف/فصل", "brilliant":"عبقري/ذكي جداً", "person":"شخص", "helps":"تساعد", "smiles":"تبتسم", "teacher":"معلم/معلمة", "students":"طلاب", "photo":"صورة", "math":"رياضيات", "subjects":"مواد دراسية", "geography":"جغرافيا", "history":"تاريخ", "understand":"أفهم" };
+    const dict = { 
+      "best":"الأفضل (تفضيل من good)", 
+      "better":"أفضل من (مقارنة من good)", 
+      "biggest":"الأكبر (تفضيل)", 
+      "longer":"أطول لغير العاقل (مقارنة)", 
+      "more":"أكثر", 
+      "difficult":"صعب", 
+      "nicest":"الألطف (تفضيل)", 
+      "smaller":"أصغر (مقارنة)", 
+      "taller":"أطول للعاقل (مقارنة)", 
+      "tallest":"الأطول للعاقل (تفضيل)", 
+      "worst":"الأسوأ (تفضيل من bad)", 
+      "friend":"صديق/صديقة", 
+      "school":"المدرسة", 
+      "name":"اسم", 
+      "hair":"شعر", 
+      "class":"صف/فصل", 
+      "brilliant":"عبقري/ذكي جداً", 
+      "person":"شخص", 
+      "helps":"تساعد", 
+      "smiles":"تبتسم", 
+      "teacher":"معلم/معلمة", 
+      "students":"طلاب", 
+      "photo":"صورة", 
+      "math":"رياضيات", 
+      "subjects":"مواد دراسية", 
+      "geography":"جغرافيا", 
+      "history":"تاريخ", 
+      "understand":"أفهم",
+      "sister": "أخت",
+      "backpack": "حقيبة ظهر",
+      "recess": "الفسحة / الاستراحة",
+      "interesting": "ممتع / مشوق"
+    };
 
     const dragWords = ["best", "better", "biggest", "longer", "more difficult", "nicest", "smaller", "taller", "tallest", "worst"];
 
@@ -413,17 +735,870 @@
     let activeRp = rolePlayData[0];
     let rpQTokens = [];
     let rpATokens = [];
+    
+    // Voice & Sync Engine State
     let syncSession = 0;
+    let activeTimer = null;
+    let currentSpeechRate = 0.85;
+    let isStoryPlaying = false;
+    let isSpeechPaused = false;
+    let allStorySentences = [];
+    let currentStorySentenceIdx = 0;
 
     window.onload = () => {
       initReadingTokens();
       initDragDrop();
       initRolePlay();
+      initVoices();
+    };
+
+    function initVoices() {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.getVoices();
         window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
       }
-    };
+    }
+
+    function getBestVoice() {
+      if (!window.speechSynthesis) return null;
+      const voices = window.speechSynthesis.getVoices();
+      const enVoices = voices.filter(v => v.lang.startsWith("en"));
+      if (enVoices.length === 0) return voices[0] || null;
+      
+      const scoreVoice = v => {
+        let score = 0;
+        const name = v.name.toLowerCase();
+        const lang = v.lang.toLowerCase();
+        if (lang.includes("us") || lang.includes("en-us")) score += 25;
+        if (name.includes("google") || name.includes("natural") || name.includes("siri") || name.includes("samantha") || name.includes("aria")) score += 35;
+        if (v.localService === false) score += 15;
+        return score;
+      };
+      
+      return [...enVoices].sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
+    }
+
+    function setSpeechRate(rate, btnEl) {
+      currentSpeechRate = rate;
+      document.querySelectorAll('.rate-btn').forEach(b => {
+        b.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+        b.classList.add('text-slate-600');
+      });
+      btnEl.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+      btnEl.classList.remove('text-slate-600');
+      playPop();
+    }
+
+    /**
+     * Dual-Lock Hybrid Speech Engine:
+     * Combines Web Speech API `onboundary` with an intelligent self-correcting clock.
+     * Prevents browser garbage-collection freezing and ensures every single word is highlighted.
+     */
+    function playSpeechWithHybridSync({ text, tokens, onWordActive, onEnd, onStart }) {
+      stopSpeech();
+      syncSession++;
+      const curSession = syncSession;
+      
+      if (!('speechSynthesis' in window)) {
+        if (onEnd) onEnd();
+        return;
+      }
+
+      // Filter tokens with valid words
+      const cleanTokens = tokens.filter(t => t && t.word && t.word.trim().length > 0);
+
+      // Schedule generation based on characters, syllables & pauses
+      const baseRate = currentSpeechRate || 0.85;
+      const msPerChar = 75 / baseRate;
+
+      let accumulatedTime = 0;
+      const schedule = cleanTokens.map((tk) => {
+        const raw = tk.word.trim();
+        const clean = tk.clean || raw.replace(/[^a-zA-Z0-9]/g, '');
+        const charLen = Math.max(clean.length, 2);
+        
+        let wordDuration = Math.max(260 / baseRate, charLen * msPerChar);
+        
+        // Optimize short common words
+        if (['in', 'at', 'on', 'to', 'of', 'is', 'it', 'a', 'an', 'the', 'my', 'we', 'he', 'she', 'too'].includes(clean.toLowerCase())) {
+          wordDuration = Math.max(210 / baseRate, charLen * (msPerChar * 0.82));
+        } else if (clean.length > 7) {
+          wordDuration += (120 / baseRate);
+        }
+
+        // Add pause duration for punctuation marks
+        const lastChar = raw.slice(-1);
+        if (lastChar === ',' || lastChar === ';') {
+          wordDuration += (280 / baseRate);
+        } else if (['.', '!', '?'].includes(lastChar)) {
+          wordDuration += (480 / baseRate);
+        }
+
+        const entry = {
+          token: tk,
+          startTime: accumulatedTime,
+          duration: wordDuration,
+          endTime: accumulatedTime + wordDuration
+        };
+        accumulatedTime += wordDuration;
+        return entry;
+      });
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = baseRate;
+      utterance.pitch = 1.0;
+      const voice = getBestVoice();
+      if (voice) utterance.voice = voice;
+
+      // Keep active reference to prevent garbage collection stopping playback in Chrome
+      window._activeUtterance = utterance;
+
+      let activeIndex = -1;
+      let speechStartTime = null;
+
+      function highlightToken(tk) {
+        if (onWordActive) onWordActive(tk);
+      }
+
+      function runSelfCorrectingClock() {
+        if (curSession !== syncSession) return;
+        const now = performance.now();
+        const elapsed = now - speechStartTime;
+
+        let targetIdx = schedule.findIndex(item => elapsed >= item.startTime && elapsed < item.endTime);
+        if (targetIdx === -1 && elapsed >= accumulatedTime && schedule.length > 0) {
+          targetIdx = schedule.length - 1;
+        }
+
+        if (targetIdx !== -1 && targetIdx !== activeIndex) {
+          activeIndex = targetIdx;
+          highlightToken(schedule[activeIndex].token);
+        }
+
+        if (elapsed < accumulatedTime + 1800) {
+          activeTimer = requestAnimationFrame(runSelfCorrectingClock);
+        }
+      }
+
+      utterance.onstart = () => {
+        if (curSession !== syncSession) return;
+        speechStartTime = performance.now();
+        setWaveActive(true);
+        if (onStart) onStart();
+        if (schedule.length > 0) {
+          activeIndex = 0;
+          highlightToken(schedule[0].token);
+        }
+        activeTimer = requestAnimationFrame(runSelfCorrectingClock);
+      };
+
+      utterance.onboundary = (e) => {
+        if (curSession !== syncSession) return;
+        if (e.name === 'word') {
+          const charIdx = e.charIndex;
+          const matchedIdx = cleanTokens.findIndex(t => charIdx >= t.start && charIdx <= (t.end + 1));
+          if (matchedIdx !== -1) {
+            activeIndex = matchedIdx;
+            highlightToken(cleanTokens[matchedIdx]);
+            // Re-calibrate clock to exact spoken word
+            if (speechStartTime !== null && schedule[matchedIdx]) {
+              speechStartTime = performance.now() - schedule[matchedIdx].startTime;
+            }
+          }
+        }
+      };
+
+      const finishSpeech = () => {
+        if (curSession !== syncSession) return;
+        if (activeTimer) cancelAnimationFrame(activeTimer);
+        setWaveActive(false);
+        window._activeUtterance = null;
+        if (onEnd) onEnd();
+      };
+
+      utterance.onend = finishSpeech;
+      utterance.onerror = finishSpeech;
+
+      // Watchdog safety timer to prevent edge-case stalls
+      const maxTime = (accumulatedTime * 1.6) + 2500;
+      setTimeout(() => {
+        if (curSession === syncSession && window.speechSynthesis.speaking) {
+          finishSpeech();
+        }
+      }, maxTime);
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function setWaveActive(active) {
+      const wave = document.getElementById("audioWave");
+      const icon = document.getElementById("masterAudioIcon");
+      if (wave) {
+        if (active) wave.classList.replace("hidden", "flex");
+        else wave.classList.replace("flex", "hidden");
+      }
+      if (icon) {
+        icon.className = active ? "fa-solid fa-volume-high animate-bounce" : "fa-solid fa-play";
+      }
+    }
+
+    function stopSpeech() {
+      syncSession++;
+      if (activeTimer) {
+        cancelAnimationFrame(activeTimer);
+        activeTimer = null;
+      }
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      window._activeUtterance = null;
+      setWaveActive(false);
+      isStoryPlaying = false;
+      isSpeechPaused = false;
+      document.getElementById("btnPlayAll").innerHTML = '<i class="fa-solid fa-play"></i><span>تشغيل القصة كاملة 🎧</span>';
+      document.getElementById("pauseBtnText").innerText = "إيقاف مؤقت";
+
+      // Clear all active word tokens across the application
+      document.querySelectorAll(".word-token").forEach(e => e.classList.remove("word-active", "word-passed"));
+      document.querySelectorAll('[id^="rp-qw-"], [id^="rp-aw-"]').forEach(e => {
+        e.classList.remove("rp-q-active", "rp-a-active", "opacity-50");
+      });
+      document.querySelectorAll('[id^="ddt-"]').forEach(e => e.classList.remove("word-active", "word-passed"));
+      document.querySelectorAll('.survey-q-span').forEach(e => e.classList.remove('text-rose-600', 'bg-rose-100', 'px-1', 'rounded'));
+    }
+
+    function pauseResumeSpeech() {
+      if (!window.speechSynthesis) return;
+      if (window.speechSynthesis.speaking) {
+        if (isSpeechPaused) {
+          window.speechSynthesis.resume();
+          isSpeechPaused = false;
+          document.getElementById("pauseBtnText").innerText = "إيقاف مؤقت";
+        } else {
+          window.speechSynthesis.pause();
+          isSpeechPaused = true;
+          document.getElementById("pauseBtnText").innerText = "استئناف";
+        }
+      }
+    }
+
+    function initReadingTokens() {
+      tokensMap = [];
+      allStorySentences = [];
+
+      textData.forEach((p, pIndex) => {
+        const cont = document.getElementById(p.id);
+        if (!cont) return;
+        cont.innerHTML = "";
+        
+        // Exact split of sentences preserving punctuation
+        const sentences = p.text.match(/[^.!?]+[.!?]+/g) || [p.text];
+
+        sentences.forEach((sentence, sIndex) => {
+          const sText = sentence.trim();
+          if (!sText) return;
+
+          const sentenceSpan = document.createElement("span");
+          sentenceSpan.className = "inline-sentence inline leading-[2.1] md:leading-[2.5]";
+
+          let localTokens = [];
+          let localOffset = 0;
+          
+          const rawWords = sText.split(/(\s+)/); 
+          rawWords.forEach(w => {
+            if (w.trim().length === 0) {
+              sentenceSpan.appendChild(document.createTextNode(w));
+              localOffset += w.length;
+            } else {
+              const span = document.createElement("span");
+              span.className = "word-token";
+              span.id = `rt-${pIndex}-${sIndex}-${localTokens.length}`;
+              span.innerText = w;
+              
+              const clean = w.replace(/[^a-zA-Z]/g, '').toLowerCase();
+              
+              const tokenObj = { 
+                id: span.id, 
+                start: localOffset, 
+                end: localOffset + w.length, 
+                clean: clean,
+                word: w,
+                pIndex: pIndex,
+                sIndex: sIndex
+              };
+
+              // Touch or Click to read and sync sentence
+              span.onclick = (e) => {
+                e.stopPropagation();
+                playWordOrSentenceWithTouchSync(sText, localTokens, tokenObj);
+              };
+
+              sentenceSpan.appendChild(span);
+              localTokens.push(tokenObj);
+              tokensMap.push(tokenObj);
+              localOffset += w.length;
+            }
+          });
+
+          cont.appendChild(sentenceSpan);
+          cont.appendChild(document.createTextNode(" "));
+
+          allStorySentences.push({
+            text: sText,
+            tokens: localTokens,
+            pIndex: pIndex,
+            sIndex: sIndex
+          });
+        });
+      });
+    }
+
+    function playWordOrSentenceWithTouchSync(sText, localTokens, targetToken) {
+      showWordToast(targetToken.clean, targetToken.word);
+      playSentenceTokens(sText, localTokens);
+    }
+
+    function playSentenceTokens(sText, tokens, onFinish = null) {
+      // Clear visual state of tokens
+      tokens.forEach(t => {
+        const el = document.getElementById(t.id);
+        if (el) el.classList.remove("word-active", "word-passed");
+      });
+
+      playSpeechWithHybridSync({
+        text: sText,
+        tokens: tokens,
+        onWordActive: (activeToken) => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (!el) return;
+            if (t.id === activeToken.id) {
+              el.classList.add("word-active");
+              el.classList.remove("word-passed");
+              // Scroll smoothly to keep active word in comfortable view
+              el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else if (t.start < activeToken.start) {
+              el.classList.remove("word-active");
+              el.classList.add("word-passed");
+            } else {
+              el.classList.remove("word-active", "word-passed");
+            }
+          });
+        },
+        onEnd: () => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (el) el.classList.remove("word-active");
+          });
+          if (onFinish) onFinish();
+        }
+      });
+    }
+
+    /* Read Single Paragraph with Sequential Sentence Sync */
+    function playParagraph(pIdx) {
+      stopSpeech();
+      const pSentences = allStorySentences.filter(s => s.pIndex === pIdx);
+      if (pSentences.length === 0) return;
+
+      let idx = 0;
+      function playNext() {
+        if (idx < pSentences.length) {
+          const cur = pSentences[idx];
+          idx++;
+          playSentenceTokens(cur.text, cur.tokens, () => {
+            setTimeout(playNext, 250);
+          });
+        }
+      }
+      playNext();
+    }
+
+    /* Read Entire Story Sequentially without missing any word */
+    function playFullStory() {
+      if (isStoryPlaying) {
+        stopSpeech();
+        return;
+      }
+      stopSpeech();
+      isStoryPlaying = true;
+      document.getElementById("btnPlayAll").innerHTML = '<i class="fa-solid fa-stop"></i><span>إيقاف القصة ⏹️</span>';
+      currentStorySentenceIdx = 0;
+
+      function next() {
+        if (!isStoryPlaying) return;
+        if (currentStorySentenceIdx < allStorySentences.length) {
+          const cur = allStorySentences[currentStorySentenceIdx];
+          currentStorySentenceIdx++;
+          playSentenceTokens(cur.text, cur.tokens, () => {
+            setTimeout(next, 320);
+          });
+        } else {
+          stopSpeech();
+          addStars(5);
+          playFanfare();
+          triggerConfettiBig();
+        }
+      }
+      next();
+    }
+
+    function speakInstruction() {
+      stopSpeech();
+      playSpeechWithHybridSync({
+        text: "Look, read and answer.",
+        tokens: [
+          { word: "Look,", start: 0, end: 5 },
+          { word: "read", start: 6, end: 10 },
+          { word: "and", start: 11, end: 14 },
+          { word: "answer.", start: 15, end: 22 }
+        ],
+        onWordActive: () => {}
+      });
+    }
+
+    function initDragDrop() {
+      const bank = document.getElementById("ddWordBank"); 
+      bank.innerHTML = "";
+      
+      dragWords.forEach((w, i) => {
+        const d = document.createElement("div"); 
+        d.className = "draggable-word px-4 py-2 rounded-xl bg-white flex items-center gap-2 cursor-pointer";
+        d.draggable = true; 
+        d.id = `dw-${i}`; 
+        d.innerHTML = `<span>${w}</span><button onclick="event.stopPropagation(); speakSingleWord('${w}')" class="text-indigo-400 hover:text-indigo-600 text-xs"><i class="fa-solid fa-volume-high"></i></button>`;
+        d.ondragstart = e => e.dataTransfer.setData("text", w);
+        d.onclick = () => {
+          document.querySelectorAll(".draggable-word").forEach(x => x.classList.remove("selected-for-drop"));
+          d.classList.add("selected-for-drop"); 
+          selectedDragWord = w; 
+          speakSingleWord(w);
+        };
+        bank.appendChild(d);
+      });
+
+      document.querySelectorAll(".drop-slot").forEach(slot => {
+        slot.ondragover = e => { e.preventDefault(); slot.classList.add("drag-over"); };
+        slot.ondragleave = () => slot.classList.remove("drag-over");
+        slot.ondrop = e => { 
+          e.preventDefault(); 
+          slot.classList.remove("drag-over"); 
+          placeWord(slot.dataset.id, e.dataTransfer.getData("text")); 
+        };
+        slot.onclick = () => {
+          if (selectedDragWord) { 
+            placeWord(slot.dataset.id, selectedDragWord); 
+            selectedDragWord = null; 
+            document.querySelectorAll(".draggable-word").forEach(x => x.classList.remove("selected-for-drop")); 
+          } else if (slotData[slot.dataset.id]) {
+            removeWord(slot.dataset.id);
+          }
+        };
+      });
+    }
+
+    function placeWord(id, w) {
+      slotData[id] = w;
+      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
+      s.classList.add("filled"); 
+      s.classList.remove("correct", "incorrect");
+      s.innerHTML = `<span>${w}</span><button onclick="event.stopPropagation(); removeWord('${id}')" class="ml-2 w-4 h-4 bg-rose-500 text-white rounded-full text-[10px] inline-flex items-center justify-center"><i class="fa-solid fa-times"></i></button>`;
+      updateBankState(); 
+      playPop();
+    }
+
+    function removeWord(id) {
+      delete slotData[id];
+      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
+      s.classList.remove("filled", "correct", "incorrect"); 
+      s.innerHTML = "";
+      updateBankState(); 
+      playPop();
+    }
+
+    function updateBankState() {
+      const used = Object.values(slotData);
+      document.querySelectorAll(".draggable-word").forEach(d => {
+        const text = d.querySelector("span").innerText;
+        if (used.includes(text)) d.classList.add("used");
+        else d.classList.remove("used");
+      });
+    }
+
+    function speakSingleWord(w) {
+      stopSpeech();
+      const u = new SpeechSynthesisUtterance(w);
+      u.lang = 'en-US';
+      u.rate = currentSpeechRate;
+      const v = getBestVoice();
+      if (v) u.voice = v;
+      window.speechSynthesis.speak(u);
+    }
+
+    function checkDragAnswers() {
+      let correctCount = 0;
+      document.querySelectorAll(".drop-slot").forEach(s => {
+        const id = s.dataset.id; 
+        const ans = s.dataset.ans;
+        s.classList.remove("correct", "incorrect");
+        if (slotData[id] === ans) { 
+          s.classList.add("correct"); 
+          correctCount++; 
+        } else if (slotData[id]) {
+          s.classList.add("incorrect");
+        }
+      });
+
+      const f = document.getElementById("ddFeedback"); 
+      f.classList.remove("hidden");
+      if (correctCount === 10) {
+        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-emerald-800 bg-emerald-100 border-2 border-emerald-400";
+        f.innerHTML = "🏆 رائع جداً! جميع الفراغات الـ 10 صحيحة تماماً."; 
+        addStars(5); 
+        playFanfare(); 
+        triggerConfettiBig();
+      } else {
+        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-amber-800 bg-amber-100 border-2 border-amber-400";
+        f.innerHTML = `حصلت على ${correctCount} من 10 إجابات صحيحة. حاول تعديل الإجابات الخاطئة.`; 
+        playChime();
+      }
+    }
+
+    function solveOneHint() {
+      const empty = Array.from(document.querySelectorAll(".drop-slot")).find(s => slotData[s.dataset.id] !== s.dataset.ans);
+      if (empty) { 
+        placeWord(empty.dataset.id, empty.dataset.ans); 
+        playChime(); 
+      }
+    }
+
+    function playDDSentence(partNum) {
+      stopSpeech();
+      const text = partNum === 1 
+        ? "In the first photo, you can see my best friend at school. Her name is Asma. She has longer hair than me, and she is taller too. I think she is the tallest girl in our class. We always sit next to each other. She is brilliant! She is the nicest person I know. Asma helps her friends and smiles a lot."
+        : "The second photo is of our class with the teacher. Our class is the biggest in our school. There are 30 students! The other classes are smaller with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is more difficult than geography or history. Sometimes I don't understand math, and I think I am the worst student in class! But Asma always helps me because she is better at math than me.";
+
+      const prefix = partNum === 1 ? "ddt-" : "ddt-";
+      const startId = partNum === 1 ? 1 : 58;
+      const endId = partNum === 1 ? 57 : 138;
+
+      const words = text.split(/(\s+)/).filter(w => w.trim().length > 0);
+      let curOffset = 0;
+      let slotIdx = partNum === 1 ? 1 : 6;
+
+      const tokens = words.map((w, idx) => {
+        const spanId = `ddt-${startId + idx}`;
+        const obj = {
+          id: spanId,
+          start: curOffset,
+          end: curOffset + w.length,
+          word: w,
+          clean: w.replace(/[^a-zA-Z]/g, '').toLowerCase()
+        };
+        curOffset += w.length + 1;
+        return obj;
+      });
+
+      playSpeechWithHybridSync({
+        text: text,
+        tokens: tokens,
+        onWordActive: (activeToken) => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (!el) return;
+            if (t.id === activeToken.id) {
+              el.classList.add("word-active");
+              el.classList.remove("word-passed");
+            } else if (t.start < activeToken.start) {
+              el.classList.remove("word-active");
+              el.classList.add("word-passed");
+            } else {
+              el.classList.remove("word-active", "word-passed");
+            }
+          });
+        },
+        onEnd: () => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (el) el.classList.remove("word-active");
+          });
+        }
+      });
+    }
+
+    function playDragDropCompletedText() {
+      stopSpeech();
+      playDDSentence(1);
+      // Automatically follows to part 2
+      const approxDuration = 18000 / currentSpeechRate;
+      setTimeout(() => {
+        playDDSentence(2);
+      }, approxDuration);
+    }
+
+    function initRolePlay() {
+      const list = document.getElementById("rpList"); 
+      list.innerHTML = "";
+      
+      rolePlayData.forEach(item => {
+        const b = document.createElement("button");
+        const active = activeRp.id === item.id;
+        b.className = `w-full p-4 rounded-xl text-left border-2 flex items-center gap-3 transition-all ${active ? 'bg-indigo-600 text-white border-indigo-700 shadow-md scale-[1.02]' : 'bg-white text-slate-700 hover:border-indigo-300'}`;
+        b.innerHTML = `
+          <span class="w-8 h-8 rounded-full ${active ? 'bg-white text-indigo-700' : 'bg-indigo-100 text-indigo-700'} font-bold flex items-center justify-center shrink-0 en-display">${item.id}</span>
+          <span class="en-font font-bold truncate block text-left w-full" dir="ltr">${item.q}</span>
+        `;
+        b.onclick = () => { 
+          stopSpeech();
+          activeRp = item; 
+          initRolePlay(); 
+          playPop(); 
+        };
+        list.appendChild(b);
+      });
+
+      renderRpChat(); 
+      renderSurvey();
+    }
+
+    function renderRpChat() {
+      document.getElementById("rpStageNum").innerText = activeRp.id;
+      
+      rpQTokens = []; 
+      rpATokens = [];
+
+      // Student A Question Tokens
+      const qC = document.getElementById("rpQText"); 
+      qC.innerHTML = "";
+      let qOffset = 0;
+      activeRp.q.split(/(\s+)/).forEach(w => {
+        if (w.trim() === "") {
+          qC.appendChild(document.createTextNode(w));
+          qOffset += w.length;
+        } else {
+          const s = document.createElement("span");
+          s.id = `rp-qw-${qOffset}`;
+          s.innerText = w;
+          s.className = "inline-block px-1 rounded transition-all";
+          qC.appendChild(s);
+          rpQTokens.push({ id: s.id, start: qOffset, end: qOffset + w.length, word: w });
+          qOffset += w.length;
+        }
+      });
+      document.getElementById("rpQAr").innerText = activeRp.qAr;
+
+      // Student B Answer Tokens
+      const aC = document.getElementById("rpAText"); 
+      aC.innerHTML = "";
+      let aOffset = 0;
+      activeRp.a.split(/(\s+)/).forEach(w => {
+        if (w.trim() === "") {
+          aC.appendChild(document.createTextNode(w));
+          aOffset += w.length;
+        } else {
+          const s = document.createElement("span");
+          s.id = `rp-aw-${aOffset}`;
+          s.innerText = w;
+          s.className = "inline-block px-1 rounded transition-all";
+          aC.appendChild(s);
+          rpATokens.push({ id: s.id, start: aOffset, end: aOffset + w.length, word: w });
+          aOffset += w.length;
+        }
+      });
+      document.getElementById("rpAAr").innerText = activeRp.aAr;
+
+      // Render Multiple Choice Quiz with speech option
+      const mcq = document.getElementById("rpMCQContainer"); 
+      mcq.innerHTML = "";
+      activeRp.choices.forEach((choice, idx) => {
+        const wrap = document.createElement("div");
+        wrap.className = "flex items-center gap-2";
+
+        const btn = document.createElement("button");
+        btn.className = "flex-1 p-4 bg-white border-2 border-slate-200 rounded-xl text-left en-font font-bold text-lg hover:border-indigo-400 transition cursor-pointer";
+        btn.innerText = choice;
+        btn.onclick = () => {
+          if (idx === activeRp.ans) {
+            btn.className = "flex-1 p-4 bg-emerald-500 border-2 border-emerald-600 text-white rounded-xl text-left en-font font-bold text-lg shadow-lg scale-[1.02] transition";
+            addStars(2); 
+            playFanfare(); 
+            confettiMini();
+          } else {
+            btn.className = "flex-1 p-4 bg-rose-500 border-2 border-rose-600 text-white rounded-xl text-left en-font font-bold text-lg transition";
+            playChime();
+          }
+        };
+
+        const speakBtn = document.createElement("button");
+        speakBtn.className = "w-12 h-12 rounded-xl bg-indigo-50 border-2 border-indigo-200 text-indigo-600 flex items-center justify-center hover:bg-indigo-100 transition";
+        speakBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+        speakBtn.onclick = () => speakSingleSentence(choice);
+
+        wrap.appendChild(btn);
+        wrap.appendChild(speakBtn);
+        mcq.appendChild(wrap);
+      });
+    }
+
+    function speakSingleSentence(str) {
+      stopSpeech();
+      const u = new SpeechSynthesisUtterance(str);
+      u.lang = 'en-US';
+      u.rate = currentSpeechRate;
+      const v = getBestVoice();
+      if (v) u.voice = v;
+      window.speechSynthesis.speak(u);
+    }
+
+    function playRpSentence(type, callback = null) {
+      stopSpeech();
+      const text = type === 'q' ? activeRp.q : activeRp.a;
+      const tokens = type === 'q' ? rpQTokens : rpATokens;
+      const activeClass = type === 'q' ? "rp-q-active" : "rp-a-active";
+
+      // Reset styles
+      tokens.forEach(t => {
+        const el = document.getElementById(t.id);
+        if (el) el.classList.remove(activeClass, "opacity-50");
+      });
+
+      playSpeechWithHybridSync({
+        text: text,
+        tokens: tokens,
+        onWordActive: (activeToken) => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (!el) return;
+            if (t.id === activeToken.id) {
+              el.classList.add(activeClass);
+              el.classList.remove("opacity-50");
+            } else if (t.start < activeToken.start) {
+              el.classList.remove(activeClass);
+              el.classList.add("opacity-50");
+            } else {
+              el.classList.remove(activeClass, "opacity-50");
+            }
+          });
+        },
+        onEnd: () => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (el) el.classList.remove(activeClass, "opacity-50");
+          });
+          if (callback) callback();
+        }
+      });
+    }
+
+    function playFullChat() {
+      stopSpeech();
+      playRpSentence('q', () => {
+        setTimeout(() => { 
+          playRpSentence('a'); 
+        }, 450);
+      });
+    }
+
+    function renderSurvey() {
+      const tb = document.getElementById("surveyTbody"); 
+      tb.innerHTML = "";
+      rolePlayData.forEach(r => {
+        const tr = document.createElement("tr"); 
+        tr.className = "border-b border-slate-100 hover:bg-slate-50 transition";
+        
+        // Build tokenized question HTML
+        const qWords = r.q.split(/(\s+)/);
+        let qSpans = "";
+        let off = 0;
+        qWords.forEach((w) => {
+          if (w.trim() === "") {
+            qSpans += w;
+          } else {
+            qSpans += `<span class="survey-word-token" id="sq-${r.id}-${off}">${w}</span>`;
+            off += w.length;
+          }
+        });
+
+        tr.innerHTML = `
+          <td class="p-3 border-r-2 border-slate-200 text-center en-display text-slate-500">${r.id}</td>
+          <td class="p-3 border-r-2 border-slate-200 text-sm md:text-base flex items-center justify-between gap-3">
+            <span id="surv-q-cont-${r.id}" class="survey-q-span font-bold text-slate-800">${qSpans}</span>
+            <button onclick="playSurveyQuestionWordByWord(${r.id})" class="text-teal-600 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 p-2 rounded-xl transition shrink-0" title="استمع للسؤال بالتزامن">
+              <i class="fa-solid fa-volume-high text-sm"></i>
+            </button>
+          </td>
+          <td class="p-3 border-r-2 border-slate-200">
+            <input type="text" id="surv-me-${r.id}" placeholder="اكتب إجابتك..." class="w-full bg-slate-100 p-2.5 rounded-xl outline-none focus:ring-2 ring-teal-400 text-sm font-bold">
+          </td>
+          <td class="p-3">
+            <input type="text" id="surv-cm-${r.id}" placeholder="إجابة زميلك..." class="w-full bg-slate-100 p-2.5 rounded-xl outline-none focus:ring-2 ring-teal-400 text-sm font-bold">
+          </td>
+        `;
+        tb.appendChild(tr);
+      });
+    }
+
+    function playSurveyQuestionWordByWord(id) {
+      const r = rolePlayData.find(x => x.id === id);
+      if (!r) return;
+      stopSpeech();
+
+      const words = r.q.split(/(\s+)/).filter(w => w.trim().length > 0);
+      let curOffset = 0;
+      const tokens = words.map(w => {
+        const obj = {
+          id: `sq-${id}-${curOffset}`,
+          start: curOffset,
+          end: curOffset + w.length,
+          word: w,
+          clean: w.replace(/[^a-zA-Z]/g, '').toLowerCase()
+        };
+        curOffset += w.length;
+        return obj;
+      });
+
+      playSpeechWithHybridSync({
+        text: r.q,
+        tokens: tokens,
+        onWordActive: (activeToken) => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (!el) return;
+            if (t.id === activeToken.id) {
+              el.className = "survey-word-token text-rose-600 bg-rose-100 px-1 rounded font-black scale-105 inline-block";
+            } else {
+              el.className = "survey-word-token";
+            }
+          });
+        },
+        onEnd: () => {
+          tokens.forEach(t => {
+            const el = document.getElementById(t.id);
+            if (el) el.className = "survey-word-token";
+          });
+        }
+      });
+    }
+
+    function autoFillSurvey() {
+      rolePlayData.forEach(r => {
+        document.getElementById(`surv-me-${r.id}`).value = r.a;
+        document.getElementById(`surv-cm-${r.id}`).value = r.a;
+      });
+      playFanfare(); 
+      confettiMini(); 
+      addStars(3);
+    }
+
+    function showWordToast(clean, raw) {
+      const txt = dict[clean] || dict[clean.replace(/s$/, '')] || "كلمة من نص الدرس";
+      document.getElementById("toastEn").innerText = raw;
+      document.getElementById("toastAr").innerText = txt;
+      const w = document.getElementById("wordToast");
+      w.classList.remove("translate-y-32", "opacity-0", "pointer-events-none");
+      setTimeout(() => w.classList.add("translate-y-32", "opacity-0", "pointer-events-none"), 3000);
+    }
 
     function changeBackgroundTheme(theme) {
       document.body.className = `min-h-screen pb-24 overflow-x-hidden selection:bg-indigo-600 selection:text-white ${theme}`;
@@ -431,23 +1606,28 @@
     }
     
     function addStars(n) {
-      stars += n; document.getElementById("starScore").innerText = stars;
+      stars += n; 
+      document.getElementById("starScore").innerText = stars;
       const b = document.getElementById("starBadge");
-      b.classList.add("scale-110"); setTimeout(()=>b.classList.remove("scale-110"),300);
+      b.classList.add("scale-125"); 
+      setTimeout(() => b.classList.remove("scale-125"), 300);
     }
     
     function likePost() {
-      postLikes++; document.getElementById("likeCount").innerText = postLikes.toLocaleString();
+      postLikes++; 
+      document.getElementById("likeCount").innerText = postLikes.toLocaleString();
       const h = document.getElementById("heartIcon");
-      h.classList.replace("fa-regular", "fa-solid"); h.classList.add("scale-125");
-      setTimeout(()=>h.classList.remove("scale-125"),250);
-      addStars(1); confettiMini();
+      h.classList.replace("fa-regular", "fa-solid"); 
+      h.classList.add("scale-125");
+      setTimeout(() => h.classList.remove("scale-125"), 250);
+      addStars(1); 
+      confettiMini();
     }
 
     function switchTab(id) {
       stopSpeech();
-      document.querySelectorAll(".tab-content").forEach(e=>e.classList.add("hidden"));
-      document.querySelectorAll(".nav-pill").forEach(e=>e.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(e => e.classList.add("hidden"));
+      document.querySelectorAll(".nav-pill").forEach(e => e.classList.remove("active"));
       document.getElementById(`section-${id}`).classList.remove("hidden");
       document.getElementById(`tab-${id}`).classList.add("active");
       playPop();
@@ -460,311 +1640,62 @@
       playPop();
     }
 
-    function initReadingTokens() {
-      tokensMap = [];
-      textData.forEach((p, pIndex) => {
-        const cont = document.getElementById(p.id);
-        if(!cont) return;
-        cont.innerHTML = "";
-        
-        const sentences = p.text.match(/[^.!?]+[.!?]+/g) || [p.text];
-
-        sentences.forEach((sentence, sIndex) => {
-          const sText = sentence.trim();
-          if(!sText) return;
-
-          const sentenceSpan = document.createElement("span");
-          sentenceSpan.className = "inline leading-[2] md:leading-[2.4]";
-
-          let localTokens = [];
-          let localOffset = 0;
-          
-          const words = sText.split(/(\s+)/); 
-          words.forEach(w => {
-            if (w.trim().length === 0) {
-              sentenceSpan.appendChild(document.createTextNode(w));
-              localOffset += w.length;
-            } else {
-              const span = document.createElement("span");
-              span.className = "word-token";
-              span.id = `rt-${pIndex}-${sIndex}-${localTokens.length}`;
-              span.innerText = w;
-              
-              const clean = w.replace(/[^a-zA-Z]/g, '').toLowerCase();
-              
-              // TOUCH / FINGER & CLICK SYNC HANDLER
-              span.onclick = (e) => {
-                e.stopPropagation();
-                playWordOrSentenceWithTouchSync(sText, localTokens, span.id, clean, w);
-              };
-              span.ontouchend = (e) => {
-                e.preventDefault();
-                playWordOrSentenceWithTouchSync(sText, localTokens, span.id, clean, w);
-              };
-              
-              sentenceSpan.appendChild(span);
-              
-              const tokenObj = { id: span.id, start: localOffset, end: localOffset + w.length, clean };
-              localTokens.push(tokenObj);
-              tokensMap.push(tokenObj);
-              localOffset += w.length;
-            }
-          });
-
-          cont.appendChild(sentenceSpan);
-          cont.appendChild(document.createTextNode(" "));
-        });
-      });
+    /* Web Audio API Sound Synthesizer */
+    function playPop() { 
+      try { 
+        const x = new (window.AudioContext || window.webkitAudioContext)(); 
+        const o = x.createOscillator(); 
+        const g = x.createGain(); 
+        o.frequency.setValueAtTime(400, x.currentTime); 
+        o.frequency.exponentialRampToValueAtTime(650, x.currentTime + 0.1); 
+        g.gain.setValueAtTime(0.08, x.currentTime); 
+        g.gain.linearRampToValueAtTime(0, x.currentTime + 0.1); 
+        o.connect(g); 
+        g.connect(x.destination); 
+        o.start(); 
+        o.stop(x.currentTime + 0.1); 
+      } catch (e) {} 
     }
 
-    function getVoice() {
-      if(!window.speechSynthesis) return null;
-      const voices = window.speechSynthesis.getVoices();
-      const en = voices.filter(v => v.lang.startsWith("en"));
-      if(en.length === 0) return voices[0];
-      const score = v => {
-        let s = 0; const nm = v.name.toLowerCase(); const ln = v.lang.toLowerCase();
-        if(ln.includes("us") || ln.includes("gb")) s+=10;
-        if(nm.includes("natural") || nm.includes("neural") || nm.includes("female")) s+=30;
-        return s;
-      };
-      return [...en].sort((a,b)=>score(b)-score(a))[0];
+    function playChime() { 
+      try { 
+        const x = new (window.AudioContext || window.webkitAudioContext)(); 
+        const o = x.createOscillator(); 
+        const g = x.createGain(); 
+        o.frequency.setValueAtTime(320, x.currentTime); 
+        g.gain.setValueAtTime(0.08, x.currentTime); 
+        g.gain.exponentialRampToValueAtTime(0.01, x.currentTime + 0.3); 
+        o.connect(g); 
+        g.connect(x.destination); 
+        o.start(); 
+        o.stop(x.currentTime + 0.3); 
+      } catch (e) {} 
     }
 
-    function playWordOrSentenceWithTouchSync(fullSentence, tokens, activeWordId, cleanWord, rawWord) {
-      stopSpeech();
-      syncSession++; const curSession = syncSession;
-      
-      showWordToast(cleanWord, rawWord);
-
-      if(!window.speechSynthesis) return;
-
-      const u = new SpeechSynthesisUtterance(fullSentence);
-      u.rate = 0.82; u.pitch = 1.05;
-      const v = getVoice(); if(v) u.voice = v;
-      
-      document.querySelectorAll(".word-token").forEach(e => e.classList.remove("word-active", "word-passed"));
-
-      u.onboundary = e => {
-        if(curSession !== syncSession || e.name !== 'word') return;
-        const c = e.charIndex;
-        const tk = tokens.find(t => c >= t.start && c <= t.end);
-        if(tk) {
-          tokens.forEach(t=>{
-             const el = document.getElementById(t.id); if(!el) return;
-             el.classList.remove("word-active");
-             if(t.start < tk.start) el.classList.add("word-passed");
-             else el.classList.remove("word-passed");
-          });
-          const el = document.getElementById(tk.id);
-          if(el) {
-            el.classList.add("word-active");
-          }
-        }
-      };
-
-      u.onend = () => {
-        if(curSession === syncSession) {
-          tokens.forEach(t=>{ const el = document.getElementById(t.id); if(el) el.classList.remove("word-active"); });
-        }
-      };
-
-      window.speechSynthesis.speak(u);
-    }
-    
-    function stopSpeech() {
-      syncSession++; 
-      if(window.speechSynthesis) window.speechSynthesis.cancel();
-      document.querySelectorAll(".word-token").forEach(e => e.classList.remove("word-active", "word-passed"));
-      document.querySelectorAll('[id^="rp-qw-"], [id^="rp-aw-"]').forEach(e => {
-          e.classList.remove("rp-q-active", "rp-a-active", "opacity-50", "inline-block", "rounded-lg", "px-1", "transition-all", "duration-100");
-      });
+    function playFanfare() { 
+      try { 
+        const x = new (window.AudioContext || window.webkitAudioContext)(); 
+        [523, 659, 783, 1046].forEach((f, i) => { 
+          const o = x.createOscillator(); 
+          const g = x.createGain(); 
+          o.frequency.value = f; 
+          g.gain.setValueAtTime(0.08, x.currentTime + i * 0.1); 
+          g.gain.exponentialRampToValueAtTime(0.01, x.currentTime + i * 0.1 + 0.35); 
+          o.connect(g); 
+          g.connect(x.destination); 
+          o.start(x.currentTime + i * 0.1); 
+          o.stop(x.currentTime + i * 0.1 + 0.35); 
+        }); 
+      } catch (e) {} 
     }
 
-    function showWordToast(clean, raw) {
-      const txt = dict[clean] || dict[clean.replace(/s$/,'')] || "كلمة من الدرس";
-      document.getElementById("toastEn").innerText = raw;
-      document.getElementById("toastAr").innerText = txt;
-      const w = document.getElementById("wordToast");
-      w.classList.remove("translate-y-32","opacity-0","pointer-events-none");
-      setTimeout(()=>w.classList.add("translate-y-32","opacity-0","pointer-events-none"), 3000);
+    function confettiMini() { 
+      if (typeof confetti === "function") confetti({ particleCount: 45, spread: 60, origin: { y: 0.8 } }); 
     }
 
-    function initDragDrop() {
-      const bank = document.getElementById("ddWordBank"); bank.innerHTML="";
-      dragWords.forEach((w,i) => {
-        const d = document.createElement("div"); d.className = "draggable-word px-4 py-2 rounded-xl bg-white";
-        d.draggable = true; d.id = `dw-${i}`; d.innerText = w;
-        d.ondragstart = e => e.dataTransfer.setData("text", w);
-        d.onclick = () => {
-          document.querySelectorAll(".draggable-word").forEach(x=>x.classList.remove("selected-for-drop"));
-          d.classList.add("selected-for-drop"); selectedDragWord = w; playPop();
-        };
-        bank.appendChild(d);
-      });
-      document.querySelectorAll(".drop-slot").forEach(slot => {
-        slot.ondragover = e => { e.preventDefault(); slot.classList.add("drag-over"); };
-        slot.ondragleave = () => slot.classList.remove("drag-over");
-        slot.ondrop = e => { e.preventDefault(); slot.classList.remove("drag-over"); placeWord(slot.dataset.id, e.dataTransfer.getData("text")); };
-        slot.onclick = () => {
-          if(selectedDragWord) { placeWord(slot.dataset.id, selectedDragWord); selectedDragWord=null; document.querySelectorAll(".draggable-word").forEach(x=>x.classList.remove("selected-for-drop")); }
-          else if(slotData[slot.dataset.id]) removeWord(slot.dataset.id);
-        };
-      });
+    function triggerConfettiBig() { 
+      if (typeof confetti === "function") confetti({ particleCount: 140, spread: 100, origin: { y: 0.6 } }); 
     }
-    
-    function placeWord(id, w) {
-      slotData[id] = w;
-      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
-      s.classList.add("filled"); s.classList.remove("correct","incorrect");
-      s.innerHTML = `<span>${w}</span><button onclick="event.stopPropagation(); removeWord('${id}')" class="ml-2 w-4 h-4 bg-rose-500 text-white rounded-full text-[10px]"><i class="fa-solid fa-times"></i></button>`;
-      updateBankState(); playPop();
-    }
-    function removeWord(id) {
-      delete slotData[id];
-      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
-      s.classList.remove("filled","correct","incorrect"); s.innerHTML = "";
-      updateBankState(); playPop();
-    }
-    function updateBankState() {
-      const used = Object.values(slotData);
-      document.querySelectorAll(".draggable-word").forEach(d => {
-        if(used.includes(d.innerText)) d.classList.add("used");
-        else d.classList.remove("used");
-      });
-    }
-    function checkDragAnswers() {
-      let c = 0;
-      document.querySelectorAll(".drop-slot").forEach(s => {
-        const id = s.dataset.id; const ans = s.dataset.ans;
-        s.classList.remove("correct","incorrect");
-        if(slotData[id] === ans) { s.classList.add("correct"); c++; }
-        else if(slotData[id]) s.classList.add("incorrect");
-      });
-      const f = document.getElementById("ddFeedback"); f.classList.remove("hidden");
-      if(c === 10) {
-        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-emerald-800 bg-emerald-100 border-2 border-emerald-400";
-        f.innerHTML = "🏆 أحسنت! جميع الفراغات الـ 10 صحيحة."; addStars(5); playFanfare(); triggerConfettiBig();
-      } else {
-        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-amber-800 bg-amber-100 border-2 border-amber-400";
-        f.innerHTML = `حصلت على ${c} من 10. حاول إصلاح الأخطاء.`; playChime();
-      }
-    }
-    function solveOneHint() {
-      const empty = Array.from(document.querySelectorAll(".drop-slot")).find(s => slotData[s.dataset.id] !== s.dataset.ans);
-      if(empty) { placeWord(empty.dataset.id, empty.dataset.ans); playChime(); }
-    }
-
-    function initRolePlay() {
-      const list = document.getElementById("rpList"); list.innerHTML = "";
-      rolePlayData.forEach(item => {
-        const b = document.createElement("button");
-        const active = activeRp.id === item.id;
-        b.className = `w-full p-4 rounded-xl text-left border-2 flex items-center gap-3 transition-all ${active?'bg-indigo-600 text-white border-indigo-700 shadow-md scale-[1.02]':'bg-white text-slate-700 hover:border-indigo-300'}`;
-        b.innerHTML = `<span class="w-8 h-8 rounded-full ${active?'bg-white text-indigo-700':'bg-indigo-100 text-indigo-700'} font-bold flex items-center justify-center shrink-0 en-display">${item.id}</span><span class="en-font font-bold truncate block text-left w-full" dir="ltr">${item.q}</span>`;
-        b.onclick = () => { activeRp = item; initRolePlay(); playPop(); };
-        list.appendChild(b);
-      });
-      renderRpChat(); renderSurvey();
-    }
-    
-    function renderRpChat() {
-      document.getElementById("rpStageNum").innerText = activeRp.id;
-      
-      rpQTokens = []; rpATokens = [];
-      const qC = document.getElementById("rpQText"); qC.innerHTML="";
-      let off=0; activeRp.q.split(/(\s+)/).forEach(w=>{
-         if(w.trim()==="") { qC.appendChild(document.createTextNode(w)); off+=w.length; }
-         else { const s=document.createElement("span"); s.id=`rp-qw-${off}`; s.innerText=w; qC.appendChild(s); rpQTokens.push({id:s.id, start:off, end:off+w.length}); off+=w.length; }
-      });
-      document.getElementById("rpQAr").innerText = activeRp.qAr;
-
-      const aC = document.getElementById("rpAText"); aC.innerHTML="";
-      off=0; activeRp.a.split(/(\s+)/).forEach(w=>{
-         if(w.trim()==="") { aC.appendChild(document.createTextNode(w)); off+=w.length; }
-         else { const s=document.createElement("span"); s.id=`rp-aw-${off}`; s.innerText=w; aC.appendChild(s); rpATokens.push({id:s.id, start:off, end:off+w.length}); off+=w.length; }
-      });
-      document.getElementById("rpAAr").innerText = activeRp.aAr;
-
-      const mcq = document.getElementById("rpMCQContainer"); mcq.innerHTML="";
-      activeRp.choices.forEach((c, i) => {
-        const btn = document.createElement("button");
-        btn.className = "p-4 bg-white border-2 border-slate-200 rounded-xl text-left en-font font-bold text-lg hover:border-indigo-400 transition";
-        btn.innerText = c;
-        btn.onclick = () => {
-          if(i === activeRp.ans) { btn.className = "p-4 bg-emerald-500 border-2 border-emerald-600 text-white rounded-xl text-left en-font font-bold text-lg shadow-lg scale-[1.02] transition"; addStars(2); playFanfare(); confettiMini(); }
-          else { btn.className = "p-4 bg-rose-500 border-2 border-rose-600 text-white rounded-xl text-left en-font font-bold text-lg transition"; playChime(); }
-        };
-        mcq.appendChild(btn);
-      });
-    }
-
-    function playRpSentence(type, callback = null) {
-      if(!window.speechSynthesis) return; stopSpeech();
-      syncSession++; const curSession = syncSession;
-      const text = type==='q' ? activeRp.q : activeRp.a;
-      const tokens = type==='q' ? rpQTokens : rpATokens;
-      const activeClass = type==='q' ? "rp-q-active" : "rp-a-active";
-      
-      const u = new SpeechSynthesisUtterance(text); u.rate = 0.88; const v=getVoice(); if(v) u.voice=v;
-      
-      u.onboundary = e => {
-        if(curSession !== syncSession || e.name !== 'word') return;
-        const c = e.charIndex;
-        const tk = tokens.find(t => c >= t.start && c <= t.end);
-        if(tk) {
-          tokens.forEach(t=>{
-            const el=document.getElementById(t.id); if(!el) return;
-            el.className="";
-            if(t.start < tk.start) el.classList.add("opacity-50");
-          });
-          const el = document.getElementById(tk.id);
-          if(el) el.classList.add(activeClass, "inline-block", "rounded-lg", "px-1", "transition-all", "duration-100");
-        }
-      };
-      u.onend = () => { 
-        if(curSession===syncSession) {
-            tokens.forEach(t=>{const el=document.getElementById(t.id); if(el) el.className="";});
-            if(callback) callback();
-        } 
-      };
-      window.speechSynthesis.speak(u);
-    }
-    
-    function playFullChat() {
-      stopSpeech();
-      playRpSentence('q', () => {
-         setTimeout(() => { playRpSentence('a'); }, 400);
-      });
-    }
-
-    function renderSurvey() {
-      const tb = document.getElementById("surveyTbody"); tb.innerHTML="";
-      rolePlayData.forEach(r => {
-        const tr = document.createElement("tr"); tr.className="border-b border-slate-100 hover:bg-slate-50";
-        tr.innerHTML = `
-          <td class="p-3 border-r-2 border-slate-200 text-center en-display">${r.id}</td>
-          <td class="p-3 border-r-2 border-slate-200 text-sm md:text-base">${r.q}</td>
-          <td class="p-3 border-r-2 border-slate-200"><input type="text" id="surv-me-${r.id}" class="w-full bg-slate-100 p-2 rounded outline-none focus:ring-2 ring-teal-400 text-sm"></td>
-          <td class="p-3"><input type="text" id="surv-cm-${r.id}" class="w-full bg-slate-100 p-2 rounded outline-none focus:ring-2 ring-teal-400 text-sm"></td>
-        `;
-        tb.appendChild(tr);
-      });
-    }
-    
-    function autoFillSurvey() {
-      rolePlayData.forEach(r => {
-        document.getElementById(`surv-me-${r.id}`).value = r.a;
-        document.getElementById(`surv-cm-${r.id}`).value = r.a;
-      });
-      playFanfare(); confettiMini(); addStars(3);
-    }
-
-    function playPop() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); const o=x.createOscillator(); const g=x.createGain(); o.frequency.setValueAtTime(400,x.currentTime); o.frequency.exponentialRampToValueAtTime(600,x.currentTime+0.1); g.gain.setValueAtTime(0.1,x.currentTime); g.gain.linearRampToValueAtTime(0,x.currentTime+0.1); o.connect(g); g.connect(x.destination); o.start(); o.stop(x.currentTime+0.1); }catch(e){} }
-    function playChime() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); const o=x.createOscillator(); const g=x.createGain(); o.frequency.setValueAtTime(300,x.currentTime); g.gain.setValueAtTime(0.1,x.currentTime); g.gain.exponentialRampToValueAtTime(0.01,x.currentTime+0.3); o.connect(g); g.connect(x.destination); o.start(); o.stop(x.currentTime+0.3); }catch(e){} }
-    function playFanfare() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); [523,659,783,1046].forEach((f,i)=>{ const o=x.createOscillator(); const g=x.createGain(); o.frequency.value=f; g.gain.setValueAtTime(0.1,x.currentTime+i*0.1); g.gain.exponentialRampToValueAtTime(0.01,x.currentTime+i*0.1+0.4); o.connect(g); g.connect(x.destination); o.start(x.currentTime+i*0.1); o.stop(x.currentTime+i*0.1+0.4); }); }catch(e){} }
-    function confettiMini() { if(typeof confetti==="function") confetti({particleCount:50,spread:70,origin:{y:0.8}}); }
-    function triggerConfettiBig() { if(typeof confetti==="function") confetti({particleCount:150,spread:100,origin:{y:0.6}}); }
   </script>
 </body>
 </html>
