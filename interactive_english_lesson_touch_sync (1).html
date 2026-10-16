@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do you remember? - Page 8 | الاستوديو التعليمي التفاعلي</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-base: #e0f2fe; --blob-1: rgba(14, 165, 233, 0.38); --blob-2: rgba(45, 212, 191, 0.35); --blob-3: rgba(59, 130, 246, 0.32);
+    }
+    body.theme-ocean { --bg-base: #e0f2fe; --blob-1: rgba(14, 165, 233, 0.38); --blob-2: rgba(45, 212, 191, 0.35); --blob-3: rgba(59, 130, 246, 0.32); }
+    body.theme-lavender { --bg-base: #f3e8ff; --blob-1: rgba(139, 92, 246, 0.38); --blob-2: rgba(244, 114, 182, 0.35); --blob-3: rgba(99, 102, 241, 0.32); }
+    body.theme-emerald { --bg-base: #d1fae5; --blob-1: rgba(16, 185, 129, 0.35); --blob-2: rgba(20, 184, 166, 0.32); --blob-3: rgba(132, 204, 22, 0.32); }
+    body.theme-sunset { --bg-base: #ffedd5; --blob-1: rgba(249, 115, 22, 0.35); --blob-2: rgba(244, 63, 94, 0.32); --blob-3: rgba(234, 179, 8, 0.35); }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--bg-base);
+      color: #0f172a;
+      transition: background-color 0.8s ease;
+      position: relative;
+    }
+    .en-font { font-family: 'Nunito', sans-serif; }
+    .en-display { font-family: 'Fredoka', sans-serif; }
+
+    .ambient-canvas { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+    .dot-grid { position: fixed; inset: 0; z-index: -1; background-image: radial-gradient(rgba(79, 70, 229, 0.14) 1.5px, transparent 1.5px); background-size: 28px 28px; pointer-events: none; }
+    .aurora-blob { position: absolute; border-radius: 9999px; filter: blur(75px); animation: floatAurora 18s infinite alternate ease-in-out; }
+    .blob-1 { width: 550px; height: 550px; top: -120px; right: -100px; background: var(--blob-1); }
+    .blob-2 { width: 480px; height: 480px; bottom: -120px; left: -100px; background: var(--blob-2); animation-delay: -6s; }
+    .blob-3 { width: 450px; height: 450px; top: 40%; left: 35%; background: var(--blob-3); animation-delay: -12s; }
+    @keyframes floatAurora { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 50% { transform: translate(45px, -35px) scale(1.1) rotate(8deg); } 100% { transform: translate(-35px, 40px) scale(0.95) rotate(-8deg); } }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.15), 0 4px 16px rgba(99, 102, 241, 0.08);
+      border-radius: 2.25rem;
+    }
+
+    .btn-3d { transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; transform: translateY(0); }
+    .btn-3d:hover { transform: translateY(-2px); }
+    .btn-3d:active { transform: translateY(4px) !important; box-shadow: 0 0px 0 0 transparent !important; }
+    .btn-3d-indigo { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 5px 0 0 #3730a3, 0 10px 20px rgba(79, 70, 229, 0.35); }
+    .btn-3d-emerald { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 5px 0 0 #065f46, 0 10px 20px rgba(16, 185, 129, 0.35); }
+    .btn-3d-white { background: #ffffff; color: #334155; border: 2px solid #e2e8f0; box-shadow: 0 5px 0 0 #cbd5e1; }
+
+    .nav-pill { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); border: 2px solid transparent; }
+    .nav-pill.active { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #ffffff; box-shadow: 0 5px 0 0 #312e81, 0 12px 24px -4px rgba(79, 70, 229, 0.45); transform: translateY(-2px); }
+
+    .word-token {
+      display: inline-block; padding: 3px 6px; margin: 2px 2px;
+      border-radius: 10px; cursor: pointer; transition: all 0.15s ease-out;
+      border: 2px solid transparent; position: relative; touch-action: manipulation;
+    }
+    .word-token:hover, .word-token:active { background-color: #e0e7ff; color: #312e81; transform: scale(1.05); }
+    
+    .word-passed { opacity: 0.45; transition: opacity 0.3s ease; }
+    .word-active {
+      background: linear-gradient(90deg, #facc15 0%, #fde047 100%) !important;
+      color: #713f12 !important;
+      border-color: #eab308 !important; border-radius: 12px !important;
+      box-shadow: 0 4px 0 0 #ca8a04, 0 8px 18px rgba(250, 204, 21, 0.55);
+      transform: scale(1.15) translateY(-2px) !important; z-index: 20; opacity: 1 !important;
+    }
+
+    .draggable-word {
+      user-select: none; touch-action: none; cursor: grab; transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: #ffffff; border: 2px solid #c7d2fe; box-shadow: 0 5px 0 0 #a5b4fc;
+    }
+    .drop-slot {
+      min-width: 105px; height: 38px; padding: 0 10px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background-color: #f8fafc; border: 3px dashed #94a3b8; border-radius: 12px;
+      margin: 2px 4px; vertical-align: bottom; font-family: 'Fredoka', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .drop-slot.filled { border-style: solid; border-color: #4f46e5; background: linear-gradient(135deg, #eef2ff, #e0e7ff); color: #312e81; box-shadow: 0 4px 0 0 #818cf8; transform: translateY(-2px); }
+    .drop-slot.correct { border-style: solid; border-color: #10b981; background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; box-shadow: 0 4px 0 0 #059669; }
+    .drop-slot.incorrect { border-style: solid; border-color: #ef4444; background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; box-shadow: 0 4px 0 0 #dc2626; }
+
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-section { animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .arabic-trans-box { display: block; }
+  </style>
+</head>
+
+<body class="theme-ocean min-h-screen pb-24 overflow-x-hidden selection:bg-indigo-600 selection:text-white" id="mainBody">
+
+  <div class="ambient-canvas">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+  </div>
+  <div class="dot-grid"></div>
+
+  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b-2 border-white/80 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-indigo-600 flex items-center justify-center text-white shadow-lg border-2 border-white">
+          <i class="fa-solid fa-fingerprint text-2xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="en-display text-xs font-bold uppercase tracking-wider px-3 py-0.5 rounded-full bg-indigo-600 text-white shadow-sm">Touch Sync Mode</span>
+            <span class="text-xs font-extrabold text-teal-800 bg-teal-100 border border-teal-300 px-2.5 py-0.5 rounded-full">صفحة 8 • Page 8</span>
+          </div>
+          <h1 class="text-lg md:text-xl font-black text-slate-900 mt-0.5">التزامن باللمس والإصبع (Touch-to-Sync)</h1>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+        <div class="flex items-center gap-1.5 bg-slate-100/90 border-2 border-slate-200 px-3 py-1.5 rounded-2xl shadow-inner">
+          <i class="fa-solid fa-palette text-indigo-500 text-sm"></i>
+          <select id="themeSelect" onchange="changeBackgroundTheme(this.value)" class="bg-transparent text-xs md:text-sm font-extrabold text-slate-700 outline-none cursor-pointer">
+            <option value="theme-ocean" selected>🌊 محيط سماوي</option>
+            <option value="theme-lavender">🌸 شفق لافندر</option>
+            <option value="theme-emerald">🌿 حديقة زمردية</option>
+            <option value="theme-sunset">🌅 غروب ذهبي</option>
+          </select>
+        </div>
+        <div id="starBadge" class="flex items-center gap-2 bg-gradient-to-r from-amber-100 to-yellow-100 border-2 border-amber-300 text-amber-900 px-4 py-1.5 rounded-2xl font-black shadow-sm">
+          <i class="fa-solid fa-star text-amber-500 text-lg"></i>
+          <span class="text-xs md:text-sm">نجومي:</span>
+          <span id="starScore" class="en-display text-xl text-amber-600">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 pb-3 pt-2">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3 bg-slate-100/90 p-2 rounded-3xl border-2 border-white shadow-inner">
+        <button onclick="switchTab('listen')" id="tab-listen" class="nav-pill active py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
+          <i class="fa-solid fa-hand-pointer"></i><span>1. القراءة باللمس والإصبع</span>
+        </button>
+        <button onclick="switchTab('dragdrop')" id="tab-dragdrop" class="nav-pill py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
+          <i class="fa-solid fa-puzzle-piece"></i><span>2. السحب والإفلات (1)</span>
+        </button>
+        <button onclick="switchTab('roleplay')" id="tab-roleplay" class="nav-pill py-3 px-3 rounded-2xl font-black text-sm md:text-base flex items-center justify-center gap-2 text-slate-700 bg-white/80">
+          <i class="fa-solid fa-comments"></i><span>3. لعبة الأدوار (2)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 mt-8">
+
+    <section id="section-listen" class="tab-content block animate-section">
+      <div class="glass-card p-5 md:p-6 mb-8 border-2 border-indigo-100 bg-gradient-to-r from-indigo-50/80 to-purple-50/80">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-right">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow">
+              <i class="fa-solid fa-hand-point-up"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-black text-slate-900">انقر أو المس أي كلمة أو جملة بإصبعك للاستماع والتزامن الفوري</h2>
+              <p class="text-xs text-indigo-700 font-bold mt-0.5">النظام يقرأ وينير الكلمة فور لمسها لتجربة تفاعلية مذهلة</p>
+            </div>
+          </div>
+          <button onclick="toggleTranslations()" class="btn-3d btn-3d-white px-4 py-2.5 rounded-2xl font-black text-xs md:text-sm flex items-center gap-2">
+            <i class="fa-solid fa-language text-indigo-600 text-lg"></i><span id="transBtnText">إخفاء الترجمة</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reading Story Card -->
+      <div class="glass-card p-6 md:p-10 relative overflow-hidden">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b-2 border-slate-100" dir="ltr">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-full bg-pink-600 text-white en-display flex items-center justify-center text-xl font-bold shadow-md">1</span>
+            <span class="en-display font-bold text-slate-900 text-lg md:text-xl">Look, read and answer.</span>
+          </div>
+          <span class="bg-indigo-100 text-indigo-700 font-black text-xs px-3 py-1.5 rounded-full" dir="rtl">👆 المس الكلمة بإصبعك لسماع نطقها الدقيق</span>
+        </div>
+
+        <!-- Custom SVG Images & Post Box -->
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl border-2 border-slate-200 shadow-xl overflow-hidden mb-8" dir="ltr">
+          <div class="grid grid-cols-1 sm:grid-cols-2">
+            <div class="bg-amber-50 p-6 flex flex-col items-center justify-center border-b sm:border-b-0 sm:border-r border-slate-200 relative group">
+              <div class="absolute top-3 left-3 bg-white/90 text-amber-900 text-[10px] font-bold px-2 py-1 rounded shadow-sm en-display">Photo 1</div>
+              <svg viewBox="0 0 200 200" class="w-48 h-48 drop-shadow-xl transition-transform duration-300 group-hover:scale-105">
+                <circle cx="100" cy="100" r="95" fill="#fef3c7"/>
+                <path d="M 60 70 Q 50 140 40 190 L 160 190 Q 150 140 140 70 Q 100 20 60 70" fill="#451a03"/>
+                <circle cx="100" cy="90" r="45" fill="#fde68a"/>
+                <circle cx="85" cy="85" r="4" fill="#1e293b"/>
+                <circle cx="115" cy="85" r="4" fill="#1e293b"/>
+                <path d="M 85 110 Q 100 125 115 110" fill="none" stroke="#b45309" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="bg-emerald-50 p-6 flex flex-col items-center justify-center relative group">
+              <div class="absolute top-3 left-3 bg-white/90 text-emerald-900 text-[10px] font-bold px-2 py-1 rounded shadow-sm en-display">Photo 2</div>
+              <svg viewBox="0 0 200 200" class="w-48 h-48 drop-shadow-xl transition-transform duration-300 group-hover:scale-105">
+                <rect x="20" y="30" width="160" height="90" rx="4" fill="#064e3b" stroke="#3f6212" stroke-width="4"/>
+                <text x="35" y="70" fill="#fff" font-family="Arial" font-size="20">2 + 2 = 4</text>
+                <circle cx="150" cy="100" r="15" fill="#fcd34d"/>
+                <rect x="140" y="115" width="20" height="30" fill="#312e81"/>
+                <circle cx="70" cy="140" r="25" fill="#fde68a"/>
+                <path d="M 40 190 Q 70 160 100 190" fill="#ec4899"/>
+                <path d="M 45 140 Q 70 100 95 140 Q 70 170 45 140" fill="#fbbf24" opacity="0.8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="px-5 py-3 flex items-center justify-between border-t border-slate-100 bg-white">
+            <div class="flex items-center gap-4">
+              <button onclick="likePost()" class="text-rose-500 hover:scale-110 transition"><i id="heartIcon" class="fa-solid fa-heart text-2xl"></i></button>
+              <i class="fa-regular fa-comment text-2xl text-slate-700"></i>
+              <i class="fa-regular fa-paper-plane text-2xl text-slate-700"></i>
+            </div>
+            <i class="fa-regular fa-bookmark text-2xl text-slate-700"></i>
+          </div>
+          <div class="px-5 pb-3 bg-white text-sm font-bold text-slate-800">
+            <span id="likeCount">1,245</span> likes
+          </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="space-y-8">
+          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-amber-50 border-2 border-amber-100 shadow-sm">
+            <div id="read-p1" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-slate-800 text-center font-bold tracking-wide" dir="ltr"></div>
+            <div class="arabic-trans-box mt-6 bg-amber-100/60 border-x-4 border-amber-500 p-4 rounded-2xl text-amber-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
+              في الصورة الأولى، يمكنك أن ترى أفضل صديقة لي في المدرسة. اسمها أسماء. لديها شعر أطول من شعري، وهي أطول مني أيضاً. أعتقد أنها أطول فتاة في صفنا. نحن نجلس دائماً بجوار بعضنا البعض. إنها ذكية جداً! هي ألطف شخص أعرفه. أسماء تساعد صديقاتها وتبتسم كثيراً.
+            </div>
+          </div>
+          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-white to-emerald-50 border-2 border-emerald-100 shadow-sm">
+            <div id="read-p2" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-slate-800 text-center font-bold tracking-wide" dir="ltr"></div>
+            <div class="arabic-trans-box mt-6 bg-emerald-100/60 border-x-4 border-emerald-500 p-4 rounded-2xl text-emerald-900 text-center font-bold text-base md:text-lg leading-relaxed" dir="rtl">
+              الصورة الثانية هي لصفنا مع المعلمة. صفنا هو الأكبر في مدرستنا. يوجد فيه 30 طالباً! الفصول الأخرى أصغر وبها حوالي 20 طالباً في كل فصل. في هذه الصورة نحن في حصة الرياضيات. أنا أحب المواد المدرسية التي ندرسها، لكن الرياضيات أصعب من الجغرافيا أو التاريخ. أحياناً لا أفهم الرياضيات، وأعتقد أنني أسوأ طالبة في الصف! لكن أسماء تساعدني دائماً لأنها أفضل مني في الرياضيات.
+            </div>
+          </div>
+          <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 shadow-sm">
+            <div id="read-p3" class="en-font text-2xl md:text-3xl leading-relaxed md:leading-loose text-indigo-900 text-center font-black tracking-wide" dir="ltr"></div>
+            <div class="arabic-trans-box mt-4 text-indigo-700 font-bold text-center text-base md:text-lg" dir="rtl">ماذا عنك؟ من هو صديقك المفضل في المدرسة؟ وما هي الصور المدرسية التي تمتلكها؟</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-dragdrop" class="tab-content hidden animate-section">
+      <div class="glass-card p-6 md:p-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 border-b-2 border-slate-100 pb-5">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-800 px-3.5 py-1 rounded-full text-xs font-black mb-1">
+              <span class="w-6 h-6 rounded-full bg-indigo-600 text-white en-display flex items-center justify-center">1</span>
+              <span>Fill in the blanks (10 Words)</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900">أكمل الفراغات بالكلمة الصحيحة (السحب والإفلات)</h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="solveOneHint()" class="btn-3d btn-3d-white px-4 py-2 rounded-2xl font-black text-sm flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i> تلميح</button>
+            <button onclick="checkDragAnswers()" class="btn-3d btn-3d-emerald px-6 py-2 rounded-2xl font-black text-sm flex items-center gap-2"><i class="fa-solid fa-check-circle"></i> تحقق</button>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 rounded-3xl p-5 border-2 border-indigo-200 mb-8 sticky top-24 z-30 shadow-sm">
+          <div class="text-xs font-black text-indigo-900 mb-3 flex items-center gap-2"><i class="fa-solid fa-hand-pointer"></i> اسحب الكلمة أو انقر عليها بإصبعك ثم انقر على الفراغ:</div>
+          <div id="ddWordBank" class="flex flex-wrap items-center justify-center gap-3 en-font text-lg font-bold" dir="ltr"></div>
+        </div>
+
+        <div class="space-y-6 en-font text-xl md:text-2xl leading-[2.6] text-slate-800 font-bold" dir="ltr">
+          <div class="bg-white p-6 rounded-3xl border-2 border-slate-100">
+            <p>
+              In the first photo, you can see my <sup class="text-pink-500 font-black text-base">1</sup><span class="drop-slot" data-id="1" data-ans="best"></span> friend at school. Her name is Asma. She has <sup class="text-pink-500 font-black text-base">2</sup><span class="drop-slot" data-id="2" data-ans="longer"></span> hair than me, and she is <sup class="text-pink-500 font-black text-base">3</sup><span class="drop-slot" data-id="3" data-ans="taller"></span> too. I think she is the <sup class="text-pink-500 font-black text-base">4</sup><span class="drop-slot" data-id="4" data-ans="tallest"></span> girl in our class. We always sit next to each other. She is brilliant! She is the <sup class="text-pink-500 font-black text-base">5</sup><span class="drop-slot" data-id="5" data-ans="nicest"></span> person I know. Asma helps her friends and smiles a lot.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-3xl border-2 border-slate-100">
+            <p>
+              The second photo is of our class with the teacher. Our class is the <sup class="text-pink-500 font-black text-base">6</sup><span class="drop-slot" data-id="6" data-ans="biggest"></span> in our school. There are 30 students! The other classes are <sup class="text-pink-500 font-black text-base">7</sup><span class="drop-slot" data-id="7" data-ans="smaller"></span> with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is <sup class="text-pink-500 font-black text-base">8</sup><span class="drop-slot" data-id="8" data-ans="more difficult"></span> than geography or history. Sometimes I don't understand math, and I think I am the <sup class="text-pink-500 font-black text-base">9</sup><span class="drop-slot" data-id="9" data-ans="worst"></span> student in class! But Asma always helps me because she is <sup class="text-pink-500 font-black text-base">10</sup><span class="drop-slot" data-id="10" data-ans="better"></span> at math than me.
+            </p>
+          </div>
+        </div>
+        <div id="ddFeedback" class="hidden mt-6 p-5 rounded-2xl text-center font-black text-lg border-2"></div>
+      </div>
+    </section>
+
+    <section id="section-roleplay" class="tab-content hidden animate-section">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+        
+        <div class="lg:col-span-7 flex flex-col h-full">
+          <div class="glass-card p-6 md:p-8 border-2 border-indigo-100 flex-1 flex flex-col relative">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b-2 border-slate-100">
+              <div class="flex items-center gap-3">
+                <div id="rpStageNum" class="w-12 h-12 rounded-full bg-indigo-600 text-white en-display font-bold text-xl flex items-center justify-center shadow">1</div>
+                <div>
+                  <h3 class="font-black text-slate-900 text-xl">المحادثة النشطة باللمس</h3>
+                  <p class="text-xs text-slate-500 font-bold">Ask and Answer</p>
+                </div>
+              </div>
+              <button onclick="playFullChat()" class="btn-3d btn-3d-indigo px-4 py-2 rounded-xl text-sm font-black flex items-center gap-2"><i class="fa-solid fa-volume-high"></i> استمع للحوار كاملًا</button>
+            </div>
+
+            <div class="space-y-8 flex-1 flex flex-col justify-center pb-6">
+              <div class="flex items-start gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 text-white flex items-center justify-center text-4xl shadow-md shrink-0">👩🏻</div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1.5 justify-end" dir="ltr">
+                    <span class="en-display font-bold text-pink-600 text-sm">Student A</span>
+                  </div>
+                  <div class="bg-white p-6 rounded-[2.5rem] rounded-tr-none border-2 border-pink-100 shadow text-left cursor-pointer hover:bg-pink-50/50 transition" dir="ltr" onclick="playRpSentence('q')">
+                    <p id="rpQText" class="en-font text-2xl md:text-3xl font-black text-slate-900 leading-snug"></p>
+                  </div>
+                  <p id="rpQAr" class="text-sm font-bold text-slate-500 mt-2 mr-3"></p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-4xl shadow-md shrink-0">🧒🏽</div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1.5 justify-end" dir="ltr">
+                    <span class="en-display font-bold text-indigo-600 text-sm">Student B</span>
+                  </div>
+                  <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-[2.5rem] rounded-tr-none text-white shadow-xl text-left cursor-pointer hover:opacity-95 transition" dir="ltr" onclick="playRpSentence('a')">
+                    <p id="rpAText" class="en-font text-2xl md:text-3xl font-black leading-snug"></p>
+                  </div>
+                  <p id="rpAAr" class="text-sm font-bold text-indigo-900 mt-2 mr-3"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t-2 border-slate-100 mt-auto">
+              <div class="text-sm font-black text-slate-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-bullseye text-rose-500"></i> اختبر استيعابك لتسجيل النقاط:</div>
+              <div id="rpMCQContainer" class="flex flex-col gap-3" dir="ltr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 h-full">
+          <div class="glass-card p-6 border-2 border-indigo-100 h-full">
+            <h3 class="text-lg font-black text-slate-800 mb-4 flex items-center justify-between">
+              <span>قائمة الأسئلة (6)</span>
+              <i class="fa-solid fa-list text-indigo-400"></i>
+            </h3>
+            <div id="rpList" class="space-y-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8 border-2 border-teal-200 mt-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+          <div>
+            <span class="bg-teal-100 text-teal-800 text-xs font-black px-3 py-1 rounded-full">جدول الاستبيان التفاعلي • Survey</span>
+            <h2 class="text-xl md:text-2xl font-black text-slate-900 mt-1">اقرأ وفكر، ثم اسأل وأجب (Me & My Classmate)</h2>
+          </div>
+          <button onclick="autoFillSurvey()" class="btn-3d btn-3d-emerald px-5 py-2.5 rounded-xl text-sm font-black flex items-center gap-2"><i class="fa-solid fa-wand-sparkles"></i> تعبئة إجابات نموذجية</button>
+        </div>
+        
+        <div class="overflow-x-auto rounded-2xl border-2 border-teal-600 shadow-sm" dir="ltr">
+          <table class="w-full text-left bg-white border-collapse">
+            <thead>
+              <tr class="bg-teal-600 text-white en-display text-lg">
+                <th class="p-4 border-r-2 border-teal-700 w-12 text-center">#</th>
+                <th class="p-4 border-r-2 border-teal-700 w-1/2">Questions</th>
+                <th class="p-4 border-r-2 border-teal-700 text-center text-teal-100">Me</th>
+                <th class="p-4 text-center text-teal-100">My classmate</th>
+              </tr>
+            </thead>
+            <tbody id="surveyTbody" class="en-font font-bold text-slate-700"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Word Toast -->
+    <div id="wordToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-slate-900/95 backdrop-blur-md text-white rounded-3xl p-4 shadow-2xl border-2 border-indigo-400/50 flex items-center gap-4 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+      <div class="flex-1">
+        <div class="en-display text-xl text-yellow-300 mb-0.5" id="toastEn"></div>
+        <div class="font-bold text-sm" id="toastAr"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const textData = [
+      { id: "read-p1", text: "In the first photo, you can see my best friend at school. Her name is Asma. She has longer hair than me, and she is taller too. I think she is the tallest girl in our class. We always sit next to each other. She is brilliant! She is the nicest person I know. Asma helps her friends and smiles a lot." },
+      { id: "read-p2", text: "The second photo is of our class with the teacher. Our class is the biggest in our school. There are 30 students! The other classes are smaller with about 20 students in each one. In this photo, we are in our math class. I like the school subjects we study, but math is more difficult than geography or history. Sometimes I don't understand math, and I think I am the worst student in class! But Asma always helps me because she is better at math than me." },
+      { id: "read-p3", text: "What about you? Who is your best friend at school? What school photos do you have?" }
+    ];
+
+    const dict = { "best":"الأفضل (تفضيل من good)", "better":"أفضل من (مقارنة من good)", "biggest":"الأكبر (تفضيل)", "longer":"أطول لغير العاقل (مقارنة)", "more":"أكثر", "difficult":"صعب", "nicest":"الألطف (تفضيل)", "smaller":"أصغر (مقارنة)", "taller":"أطول للعاقل (مقارنة)", "tallest":"الأطول للعاقل (تفضيل)", "worst":"الأسوأ (تفضيل من bad)", "friend":"صديق/صديقة", "school":"المدرسة", "name":"اسم", "hair":"شعر", "class":"صف/فصل", "brilliant":"عبقري/ذكي جداً", "person":"شخص", "helps":"تساعد", "smiles":"تبتسم", "teacher":"معلم/معلمة", "students":"طلاب", "photo":"صورة", "math":"رياضيات", "subjects":"مواد دراسية", "geography":"جغرافيا", "history":"تاريخ", "understand":"أفهم" };
+
+    const dragWords = ["best", "better", "biggest", "longer", "more difficult", "nicest", "smaller", "taller", "tallest", "worst"];
+
+    const rolePlayData = [
+      { id: 1, q: "Who is the tallest student in your class?", qAr: "من هو أطول طالب في صفك؟", a: "It's my sister. She's taller than all of us!", aAr: "إنها أختي. إنها أطول منا جميعاً!", choices: ["It's my sister. She's taller than all of us!", "I have the smallest backpack.", "Math is more difficult."], ans: 0 },
+      { id: 2, q: "What is the nicest thing about your best friend?", qAr: "ما هو ألطف شيء في صديقك المفضل؟", a: "She always helps her friends and smiles a lot.", aAr: "إنها تساعد صديقاتها دائماً وتبتسم كثيراً.", choices: ["She sleeps in class.", "She always helps her friends and smiles a lot.", "History is nice."], ans: 1 },
+      { id: 3, q: "Who has the biggest backpack in your class?", qAr: "من يملك أكبر حقيبة ظهر في صفك؟", a: "Fahad has the biggest backpack because he brings many books!", aAr: "فهد لديه أكبر حقيبة لأنه يحضر الكثير من الكتب!", choices: ["Fahad has the biggest backpack.", "My hair is longer.", "Geography is interesting."], ans: 0 },
+      { id: 4, q: "What is the best thing about recess time at school?", qAr: "ما هو أفضل شيء في وقت الفسحة المدرسية؟", a: "Playing with my friends is the best thing.", aAr: "اللعب مع أصدقائي هو أفضل شيء.", choices: ["Doing difficult math.", "Playing with my friends is the best thing.", "I sit alone."], ans: 1 },
+      { id: 5, q: "Which school subject do you think is more interesting, history or geography? Why?", qAr: "أي مادة مدرسية تعتقد أنها أكثر متعة، التاريخ أم الجغرافيا؟ ولماذا؟", a: "Geography is more interesting because I love learning about countries.", aAr: "الجغرافيا أكثر متعة لأنني أحب التعلم عن البلدان.", choices: ["Math is worst.", "Geography is more interesting.", "I am taller."], ans: 1 },
+      { id: 6, q: "What school subjects are more difficult at school?", qAr: "ما هي المواد المدرسية الأكثر صعوبة في المدرسة؟", a: "I think math and history are more difficult.", aAr: "أعتقد أن الرياضيات والتاريخ أكثر صعوبة.", choices: ["I have a big backpack.", "I think math and history are more difficult.", "Asma is my friend."], ans: 1 }
+    ];
+
+    let tokensMap = [];
+    let showTrans = true;
+    let stars = 0;
+    let postLikes = 1245;
+    let selectedDragWord = null;
+    let slotData = {};
+    let activeRp = rolePlayData[0];
+    let rpQTokens = [];
+    let rpATokens = [];
+    let syncSession = 0;
+
+    window.onload = () => {
+      initReadingTokens();
+      initDragDrop();
+      initRolePlay();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+      }
+    };
+
+    function changeBackgroundTheme(theme) {
+      document.body.className = `min-h-screen pb-24 overflow-x-hidden selection:bg-indigo-600 selection:text-white ${theme}`;
+      playPop();
+    }
+    
+    function addStars(n) {
+      stars += n; document.getElementById("starScore").innerText = stars;
+      const b = document.getElementById("starBadge");
+      b.classList.add("scale-110"); setTimeout(()=>b.classList.remove("scale-110"),300);
+    }
+    
+    function likePost() {
+      postLikes++; document.getElementById("likeCount").innerText = postLikes.toLocaleString();
+      const h = document.getElementById("heartIcon");
+      h.classList.replace("fa-regular", "fa-solid"); h.classList.add("scale-125");
+      setTimeout(()=>h.classList.remove("scale-125"),250);
+      addStars(1); confettiMini();
+    }
+
+    function switchTab(id) {
+      stopSpeech();
+      document.querySelectorAll(".tab-content").forEach(e=>e.classList.add("hidden"));
+      document.querySelectorAll(".nav-pill").forEach(e=>e.classList.remove("active"));
+      document.getElementById(`section-${id}`).classList.remove("hidden");
+      document.getElementById(`tab-${id}`).classList.add("active");
+      playPop();
+    }
+    
+    function toggleTranslations() {
+      showTrans = !showTrans;
+      document.querySelectorAll(".arabic-trans-box").forEach(el => el.style.display = showTrans ? "block" : "none");
+      document.getElementById("transBtnText").innerText = showTrans ? "إخفاء الترجمة" : "إظهار الترجمة";
+      playPop();
+    }
+
+    function initReadingTokens() {
+      tokensMap = [];
+      textData.forEach((p, pIndex) => {
+        const cont = document.getElementById(p.id);
+        if(!cont) return;
+        cont.innerHTML = "";
+        
+        const sentences = p.text.match(/[^.!?]+[.!?]+/g) || [p.text];
+
+        sentences.forEach((sentence, sIndex) => {
+          const sText = sentence.trim();
+          if(!sText) return;
+
+          const sentenceSpan = document.createElement("span");
+          sentenceSpan.className = "inline leading-[2] md:leading-[2.4]";
+
+          let localTokens = [];
+          let localOffset = 0;
+          
+          const words = sText.split(/(\s+)/); 
+          words.forEach(w => {
+            if (w.trim().length === 0) {
+              sentenceSpan.appendChild(document.createTextNode(w));
+              localOffset += w.length;
+            } else {
+              const span = document.createElement("span");
+              span.className = "word-token";
+              span.id = `rt-${pIndex}-${sIndex}-${localTokens.length}`;
+              span.innerText = w;
+              
+              const clean = w.replace(/[^a-zA-Z]/g, '').toLowerCase();
+              
+              // TOUCH / FINGER & CLICK SYNC HANDLER
+              span.onclick = (e) => {
+                e.stopPropagation();
+                playWordOrSentenceWithTouchSync(sText, localTokens, span.id, clean, w);
+              };
+              span.ontouchend = (e) => {
+                e.preventDefault();
+                playWordOrSentenceWithTouchSync(sText, localTokens, span.id, clean, w);
+              };
+              
+              sentenceSpan.appendChild(span);
+              
+              const tokenObj = { id: span.id, start: localOffset, end: localOffset + w.length, clean };
+              localTokens.push(tokenObj);
+              tokensMap.push(tokenObj);
+              localOffset += w.length;
+            }
+          });
+
+          cont.appendChild(sentenceSpan);
+          cont.appendChild(document.createTextNode(" "));
+        });
+      });
+    }
+
+    function getVoice() {
+      if(!window.speechSynthesis) return null;
+      const voices = window.speechSynthesis.getVoices();
+      const en = voices.filter(v => v.lang.startsWith("en"));
+      if(en.length === 0) return voices[0];
+      const score = v => {
+        let s = 0; const nm = v.name.toLowerCase(); const ln = v.lang.toLowerCase();
+        if(ln.includes("us") || ln.includes("gb")) s+=10;
+        if(nm.includes("natural") || nm.includes("neural") || nm.includes("female")) s+=30;
+        return s;
+      };
+      return [...en].sort((a,b)=>score(b)-score(a))[0];
+    }
+
+    function playWordOrSentenceWithTouchSync(fullSentence, tokens, activeWordId, cleanWord, rawWord) {
+      stopSpeech();
+      syncSession++; const curSession = syncSession;
+      
+      showWordToast(cleanWord, rawWord);
+
+      if(!window.speechSynthesis) return;
+
+      const u = new SpeechSynthesisUtterance(fullSentence);
+      u.rate = 0.82; u.pitch = 1.05;
+      const v = getVoice(); if(v) u.voice = v;
+      
+      document.querySelectorAll(".word-token").forEach(e => e.classList.remove("word-active", "word-passed"));
+
+      u.onboundary = e => {
+        if(curSession !== syncSession || e.name !== 'word') return;
+        const c = e.charIndex;
+        const tk = tokens.find(t => c >= t.start && c <= t.end);
+        if(tk) {
+          tokens.forEach(t=>{
+             const el = document.getElementById(t.id); if(!el) return;
+             el.classList.remove("word-active");
+             if(t.start < tk.start) el.classList.add("word-passed");
+             else el.classList.remove("word-passed");
+          });
+          const el = document.getElementById(tk.id);
+          if(el) {
+            el.classList.add("word-active");
+          }
+        }
+      };
+
+      u.onend = () => {
+        if(curSession === syncSession) {
+          tokens.forEach(t=>{ const el = document.getElementById(t.id); if(el) el.classList.remove("word-active"); });
+        }
+      };
+
+      window.speechSynthesis.speak(u);
+    }
+    
+    function stopSpeech() {
+      syncSession++; 
+      if(window.speechSynthesis) window.speechSynthesis.cancel();
+      document.querySelectorAll(".word-token").forEach(e => e.classList.remove("word-active", "word-passed"));
+      document.querySelectorAll('[id^="rp-qw-"], [id^="rp-aw-"]').forEach(e => {
+          e.classList.remove("rp-q-active", "rp-a-active", "opacity-50", "inline-block", "rounded-lg", "px-1", "transition-all", "duration-100");
+      });
+    }
+
+    function showWordToast(clean, raw) {
+      const txt = dict[clean] || dict[clean.replace(/s$/,'')] || "كلمة من الدرس";
+      document.getElementById("toastEn").innerText = raw;
+      document.getElementById("toastAr").innerText = txt;
+      const w = document.getElementById("wordToast");
+      w.classList.remove("translate-y-32","opacity-0","pointer-events-none");
+      setTimeout(()=>w.classList.add("translate-y-32","opacity-0","pointer-events-none"), 3000);
+    }
+
+    function initDragDrop() {
+      const bank = document.getElementById("ddWordBank"); bank.innerHTML="";
+      dragWords.forEach((w,i) => {
+        const d = document.createElement("div"); d.className = "draggable-word px-4 py-2 rounded-xl bg-white";
+        d.draggable = true; d.id = `dw-${i}`; d.innerText = w;
+        d.ondragstart = e => e.dataTransfer.setData("text", w);
+        d.onclick = () => {
+          document.querySelectorAll(".draggable-word").forEach(x=>x.classList.remove("selected-for-drop"));
+          d.classList.add("selected-for-drop"); selectedDragWord = w; playPop();
+        };
+        bank.appendChild(d);
+      });
+      document.querySelectorAll(".drop-slot").forEach(slot => {
+        slot.ondragover = e => { e.preventDefault(); slot.classList.add("drag-over"); };
+        slot.ondragleave = () => slot.classList.remove("drag-over");
+        slot.ondrop = e => { e.preventDefault(); slot.classList.remove("drag-over"); placeWord(slot.dataset.id, e.dataTransfer.getData("text")); };
+        slot.onclick = () => {
+          if(selectedDragWord) { placeWord(slot.dataset.id, selectedDragWord); selectedDragWord=null; document.querySelectorAll(".draggable-word").forEach(x=>x.classList.remove("selected-for-drop")); }
+          else if(slotData[slot.dataset.id]) removeWord(slot.dataset.id);
+        };
+      });
+    }
+    
+    function placeWord(id, w) {
+      slotData[id] = w;
+      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
+      s.classList.add("filled"); s.classList.remove("correct","incorrect");
+      s.innerHTML = `<span>${w}</span><button onclick="event.stopPropagation(); removeWord('${id}')" class="ml-2 w-4 h-4 bg-rose-500 text-white rounded-full text-[10px]"><i class="fa-solid fa-times"></i></button>`;
+      updateBankState(); playPop();
+    }
+    function removeWord(id) {
+      delete slotData[id];
+      const s = document.querySelector(`.drop-slot[data-id="${id}"]`);
+      s.classList.remove("filled","correct","incorrect"); s.innerHTML = "";
+      updateBankState(); playPop();
+    }
+    function updateBankState() {
+      const used = Object.values(slotData);
+      document.querySelectorAll(".draggable-word").forEach(d => {
+        if(used.includes(d.innerText)) d.classList.add("used");
+        else d.classList.remove("used");
+      });
+    }
+    function checkDragAnswers() {
+      let c = 0;
+      document.querySelectorAll(".drop-slot").forEach(s => {
+        const id = s.dataset.id; const ans = s.dataset.ans;
+        s.classList.remove("correct","incorrect");
+        if(slotData[id] === ans) { s.classList.add("correct"); c++; }
+        else if(slotData[id]) s.classList.add("incorrect");
+      });
+      const f = document.getElementById("ddFeedback"); f.classList.remove("hidden");
+      if(c === 10) {
+        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-emerald-800 bg-emerald-100 border-2 border-emerald-400";
+        f.innerHTML = "🏆 أحسنت! جميع الفراغات الـ 10 صحيحة."; addStars(5); playFanfare(); triggerConfettiBig();
+      } else {
+        f.className = "mt-6 p-5 rounded-2xl text-center font-black text-amber-800 bg-amber-100 border-2 border-amber-400";
+        f.innerHTML = `حصلت على ${c} من 10. حاول إصلاح الأخطاء.`; playChime();
+      }
+    }
+    function solveOneHint() {
+      const empty = Array.from(document.querySelectorAll(".drop-slot")).find(s => slotData[s.dataset.id] !== s.dataset.ans);
+      if(empty) { placeWord(empty.dataset.id, empty.dataset.ans); playChime(); }
+    }
+
+    function initRolePlay() {
+      const list = document.getElementById("rpList"); list.innerHTML = "";
+      rolePlayData.forEach(item => {
+        const b = document.createElement("button");
+        const active = activeRp.id === item.id;
+        b.className = `w-full p-4 rounded-xl text-left border-2 flex items-center gap-3 transition-all ${active?'bg-indigo-600 text-white border-indigo-700 shadow-md scale-[1.02]':'bg-white text-slate-700 hover:border-indigo-300'}`;
+        b.innerHTML = `<span class="w-8 h-8 rounded-full ${active?'bg-white text-indigo-700':'bg-indigo-100 text-indigo-700'} font-bold flex items-center justify-center shrink-0 en-display">${item.id}</span><span class="en-font font-bold truncate block text-left w-full" dir="ltr">${item.q}</span>`;
+        b.onclick = () => { activeRp = item; initRolePlay(); playPop(); };
+        list.appendChild(b);
+      });
+      renderRpChat(); renderSurvey();
+    }
+    
+    function renderRpChat() {
+      document.getElementById("rpStageNum").innerText = activeRp.id;
+      
+      rpQTokens = []; rpATokens = [];
+      const qC = document.getElementById("rpQText"); qC.innerHTML="";
+      let off=0; activeRp.q.split(/(\s+)/).forEach(w=>{
+         if(w.trim()==="") { qC.appendChild(document.createTextNode(w)); off+=w.length; }
+         else { const s=document.createElement("span"); s.id=`rp-qw-${off}`; s.innerText=w; qC.appendChild(s); rpQTokens.push({id:s.id, start:off, end:off+w.length}); off+=w.length; }
+      });
+      document.getElementById("rpQAr").innerText = activeRp.qAr;
+
+      const aC = document.getElementById("rpAText"); aC.innerHTML="";
+      off=0; activeRp.a.split(/(\s+)/).forEach(w=>{
+         if(w.trim()==="") { aC.appendChild(document.createTextNode(w)); off+=w.length; }
+         else { const s=document.createElement("span"); s.id=`rp-aw-${off}`; s.innerText=w; aC.appendChild(s); rpATokens.push({id:s.id, start:off, end:off+w.length}); off+=w.length; }
+      });
+      document.getElementById("rpAAr").innerText = activeRp.aAr;
+
+      const mcq = document.getElementById("rpMCQContainer"); mcq.innerHTML="";
+      activeRp.choices.forEach((c, i) => {
+        const btn = document.createElement("button");
+        btn.className = "p-4 bg-white border-2 border-slate-200 rounded-xl text-left en-font font-bold text-lg hover:border-indigo-400 transition";
+        btn.innerText = c;
+        btn.onclick = () => {
+          if(i === activeRp.ans) { btn.className = "p-4 bg-emerald-500 border-2 border-emerald-600 text-white rounded-xl text-left en-font font-bold text-lg shadow-lg scale-[1.02] transition"; addStars(2); playFanfare(); confettiMini(); }
+          else { btn.className = "p-4 bg-rose-500 border-2 border-rose-600 text-white rounded-xl text-left en-font font-bold text-lg transition"; playChime(); }
+        };
+        mcq.appendChild(btn);
+      });
+    }
+
+    function playRpSentence(type, callback = null) {
+      if(!window.speechSynthesis) return; stopSpeech();
+      syncSession++; const curSession = syncSession;
+      const text = type==='q' ? activeRp.q : activeRp.a;
+      const tokens = type==='q' ? rpQTokens : rpATokens;
+      const activeClass = type==='q' ? "rp-q-active" : "rp-a-active";
+      
+      const u = new SpeechSynthesisUtterance(text); u.rate = 0.88; const v=getVoice(); if(v) u.voice=v;
+      
+      u.onboundary = e => {
+        if(curSession !== syncSession || e.name !== 'word') return;
+        const c = e.charIndex;
+        const tk = tokens.find(t => c >= t.start && c <= t.end);
+        if(tk) {
+          tokens.forEach(t=>{
+            const el=document.getElementById(t.id); if(!el) return;
+            el.className="";
+            if(t.start < tk.start) el.classList.add("opacity-50");
+          });
+          const el = document.getElementById(tk.id);
+          if(el) el.classList.add(activeClass, "inline-block", "rounded-lg", "px-1", "transition-all", "duration-100");
+        }
+      };
+      u.onend = () => { 
+        if(curSession===syncSession) {
+            tokens.forEach(t=>{const el=document.getElementById(t.id); if(el) el.className="";});
+            if(callback) callback();
+        } 
+      };
+      window.speechSynthesis.speak(u);
+    }
+    
+    function playFullChat() {
+      stopSpeech();
+      playRpSentence('q', () => {
+         setTimeout(() => { playRpSentence('a'); }, 400);
+      });
+    }
+
+    function renderSurvey() {
+      const tb = document.getElementById("surveyTbody"); tb.innerHTML="";
+      rolePlayData.forEach(r => {
+        const tr = document.createElement("tr"); tr.className="border-b border-slate-100 hover:bg-slate-50";
+        tr.innerHTML = `
+          <td class="p-3 border-r-2 border-slate-200 text-center en-display">${r.id}</td>
+          <td class="p-3 border-r-2 border-slate-200 text-sm md:text-base">${r.q}</td>
+          <td class="p-3 border-r-2 border-slate-200"><input type="text" id="surv-me-${r.id}" class="w-full bg-slate-100 p-2 rounded outline-none focus:ring-2 ring-teal-400 text-sm"></td>
+          <td class="p-3"><input type="text" id="surv-cm-${r.id}" class="w-full bg-slate-100 p-2 rounded outline-none focus:ring-2 ring-teal-400 text-sm"></td>
+        `;
+        tb.appendChild(tr);
+      });
+    }
+    
+    function autoFillSurvey() {
+      rolePlayData.forEach(r => {
+        document.getElementById(`surv-me-${r.id}`).value = r.a;
+        document.getElementById(`surv-cm-${r.id}`).value = r.a;
+      });
+      playFanfare(); confettiMini(); addStars(3);
+    }
+
+    function playPop() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); const o=x.createOscillator(); const g=x.createGain(); o.frequency.setValueAtTime(400,x.currentTime); o.frequency.exponentialRampToValueAtTime(600,x.currentTime+0.1); g.gain.setValueAtTime(0.1,x.currentTime); g.gain.linearRampToValueAtTime(0,x.currentTime+0.1); o.connect(g); g.connect(x.destination); o.start(); o.stop(x.currentTime+0.1); }catch(e){} }
+    function playChime() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); const o=x.createOscillator(); const g=x.createGain(); o.frequency.setValueAtTime(300,x.currentTime); g.gain.setValueAtTime(0.1,x.currentTime); g.gain.exponentialRampToValueAtTime(0.01,x.currentTime+0.3); o.connect(g); g.connect(x.destination); o.start(); o.stop(x.currentTime+0.3); }catch(e){} }
+    function playFanfare() { try { const x=new(window.AudioContext||window.webkitAudioContext)(); [523,659,783,1046].forEach((f,i)=>{ const o=x.createOscillator(); const g=x.createGain(); o.frequency.value=f; g.gain.setValueAtTime(0.1,x.currentTime+i*0.1); g.gain.exponentialRampToValueAtTime(0.01,x.currentTime+i*0.1+0.4); o.connect(g); g.connect(x.destination); o.start(x.currentTime+i*0.1); o.stop(x.currentTime+i*0.1+0.4); }); }catch(e){} }
+    function confettiMini() { if(typeof confetti==="function") confetti({particleCount:50,spread:70,origin:{y:0.8}}); }
+    function triggerConfettiBig() { if(typeof confetti==="function") confetti({particleCount:150,spread:100,origin:{y:0.6}}); }
+  </script>
+</body>
+</html>
